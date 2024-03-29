@@ -1,0 +1,365 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[table]{xcolor} % For cell coloring
+\usepackage{geometry} % For page margins
+\usepackage{graphicx} % For including images
+\usepackage{float} % For image placement
+\usepackage{tabularx} % For table stretching
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{xspace}
+
+\usepackage{listings}
+\lstset{% setup parameters for listings:
+  columns=fullflexible,  % avoids addition of extra spaces in unexpected positions
+  keepspaces,            % causes alignment-by-spaces to be preserved in output
+  basicstyle=\ttfamily,  % With fullflexible and keepspaces, using a non-monospaced
+                         % font causes incorrect alignment of plain-text columns.
+  backgroundcolor=\color{gray!10},
+  keywordstyle=\bfseries\color{black!90},
+  numbers=left, numberstyle=\small\sffamily, stepnumber=5, numbersep=5pt}
+
+\usepackage{titlesec}
+\titleformat{\subparagraph}
+    {\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}
+\titlespacing*{\subparagraph}{\parindent}{3.25ex plus 1ex minus .2ex}{.75ex plus .1ex}
+
+\input{../../results/results.tex}
+
+% Define colours
+\definecolor{headercolor}{RGB}{169,169,169} % Grey color, adjust the RGB values as per your document
+\definecolor{rowcolor}{RGB}{255,255,255} % White color, adjust if your document has a different row color
+
+% Set page margins
+\geometry{left=25mm,right=25mm,top=25mm,bottom=25mm}
+
+% Custom column type for tabularx
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\title{ECON60332 Coursework Template}
+\author{Group 11} % INSERT GROUP NUMBER HERE
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\noindent\begin{tabularx}{\linewidth}{|Y|Y|}
+    \hline
+    \rowcolor{headercolor} Participant’s Student ID & Indicate if the student did not participate \\
+    \hline
+    \multicolumn{1}{|c|}{10710007}\\
+    \hline
+
+\end{tabularx}
+
+\section*{Theoretical exercise}
+
+\subsection*{Question a}
+% Answer goes here
+
+\subsection*{Question b}
+% Answer goes here
+
+\subsection*{Question c}
+% Answer goes here
+
+\subsection*{Question d}
+% Answer goes here
+
+\subsection*{Question e}
+
+\section*{Practical exercise}
+\subsection*{Question a}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\rowcolor{headercolor}
+ & Sample moments & & Test statistic & P-value \\
+\hline
+Mean & \amu &   Mean & \amut & \amup \\
+\hline
+Standard deviation & \asigma &  Skewness & \askewt & \askewp \\
+\hline
+Skewness &  \askew & Kurtosis & \akurtt & \akurtp \\
+\hline
+Kurtosis & \akurt & JB & \ajbt & \ajbp \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection*{LBQ test results:}
+\noindent\begin{tabularx}{\linewidth}{|Y|Y|Y|}
+    \hline
+    \rowcolor{headercolor} & Returns & Squared returns \\
+    \hline
+    Test statistic & \aistat & \aiistat \\
+    \hline
+    P-value & \aip & \aiip \\
+    \hline
+\end{tabularx}
+
+\subsubsection*{Plot of Daily Log Returns}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{../../docs/figures/log_return_plot.png}
+    \caption{Log Return Plot}
+    \label{fig:logreturn}
+\end{figure}
+
+\subsubsection*{SACF and SPACF}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{../../docs/figures/PACF.png}
+    \caption{Sample Autocorrelation and Partial Autocorrelation Function Plot}
+    \label{fig:pacf}
+\end{figure}
+
+\subsection*{Interpretation}
+
+\subparagraph{Descriptive Statistics}  
+
+Mean : the sample mean is \amu 
+
+Standard Deviation : the standard deviation is \asigma, indicating a relatively high volatility of the data. 
+
+Skewness : the skewness value of \askew suggests that the distribution of returns is slightly negatively skewed, meaning there are more extreme negative returns than positive returns. 
+
+Kurtosis : the kurtosis value of \akurt is higher than the normal distribution value of 3, indicating that the distribution of returns has heavier tails and more extreme values when compared to a normal distribution. 
+
+\subparagraph{Test Statistics}
+
+Testing the significance of the mean return, we set up the following hypothesis and use a one sided test :
+\begin{itemize}
+	\item The null hypothesis, the mean return is equal to zero ($H_0 : \mu =0$) against
+	\item The alternative hypothesis that the mean is not equal to zero $H_1 : \mu \neq = 0$.
+\end{itemize}
+The decision rule is that we reject $H_0$ if the p-value is less than the significance level $\alpha$ (EG, 0.05). 
+The test statistic obtained is \amut with a p-value of \amup, thus we fail to reject $H_0$ at all conventional significance levels. 
+We do not have enough evidence to conclude the mean return is significantly different from zero, and cannot reject the possibility that the true mean return is equal to zero. 
+
+Testing the significance of skewness in the returns, we set up the following hypothesis and one sided test :
+\begin{itemize}
+	\item The null hypothesis, the skewness of the return series is zero ($ H_1: \gamma = 0$), indicating a symmetric distribution. Against
+	\item The alternative hypothesis, the skewness of the financial time series returns is not zero ($\gamma \neq = 0$), indicating a non-symmetric distribution
+\end{itemize}
+The decision rule is to reject $H_0$ if the p value is less than the significance level $\alpha$ (EG, 0.05). 
+The test statistic obtained is \askewt with a p-value of \askewp. Since the p-value is less than 0.05, we reject the null hypothesis ($H_0$) in favour of the alternative hypothesis. 
+Thus, the distribution of returns is significantly skewed, and hence not symmetric. 
+Testing for kurtosis (leptokurtic property) in the returns, we set up the following hypothesis and one sided test:
+\begin{itemize}
+	\item The null hypothesis, the kurtosis of the returns equals the normal distribution value of 3 ($H_0 : \kappa = 3$), indicating a normal distribution in terms of tail thickness. Against, 
+	\item The alternative hypothesis, the kurtosis of the financial time series returns is significantly different from 3 ($H_1 : \kappa \neq 3 $), indicating a non-normal distribution in terms of tail thickness
+\end{itemize}
+The decision rule is to reject $H_0$ if the p value is less than the significance level $\alpha$ (EG, 0.05). 
+The test statistic obtained is \akurt and p value of $\akurtp$, thus we reject  $H_0$, in favour of the alternative hypothesis.
+Thus, the returns have significantly different kurtosis from 3, confirming the presence of heavy tails in the distribution. 
+
+Using the Jargue-Bera test for normality, we set up the following hypothesis and 1 sided test : 
+\begin{itemize}
+	\item The null hypothesis, the returns follow a normal distribution, implying that both the skewness and kurtosis of the series equal those of a normal distribution ($H_0 : \gamma = 0 \& \kappa = 3$). Against, 
+	\item The alternative hypothesis, that the returns do not follow a normal distribution, meaning either the or both the skewness and kurtosis significantly differ from those of a normal distribution ($H_0 : \gamma \neq 0 \& \kappa \neq 3$). 
+\end{itemize}
+The decision rule is to reject $H_0$ if the p-value is less than the significance level $\alpha$ (EG, 0.05). 
+The outcome of the test since the JB test statistic is \ajbt with a p-value of \ajbp. 
+Therefore, we reject $H_0$ in favour of $H_1$, that the distribution of returns differs significantly from normality, evidence by its skewness and kurtosis values. 
+
+\subparagraph{Ljung-Box Test}
+
+Testing the autocorrelation of the financial time series returns, we use the Ljung-Box Q-test with the following hypotheses:
+
+\begin{itemize}
+	\item The null hypothesis, which states that there is no autocorrelation in the series up to a certain number of lags ($H_0: \rho_1 = \rho_2 = \ldots = \rho_{21} = 0$), where $\rho$ represents autocorrelation at different lags.
+	\item The alternative hypothesis, which suggests that there is some autocorrelation in the series at least at one lag ($H_1: \rho_i \neq 0$ for some $i \in \{1, 2, \ldots, 21 \}$).
+\end{itemize}
+
+The decision rule is to reject $H_0$ if the p-value is less than the significance level $\alpha$ (e.g., 0.05).
+
+For the returns, the test statistic obtained is 27.06 with a p-value of 0.17.
+
+Since the p-value is greater than all conventional significance levels, we do not reject the null hypothesis. 
+Thus, there is no significant evidence of autocorrelation in the returns of the series.
+
+For squared returns, the test statistic obtained is 25.61 with a p-value of 0.22.
+
+Similarly, since the p-value is greater than 0.05, we do not reject the null hypothesis for squared returns  at all conventional significance levels either.
+This indicates no significant evidence of autocorrelation in the volatility (squared returns) of the series.
+
+\subparagraph{SACF SPACF plots}
+
+The SACF plot measures the correlation between different points in the time series separated by various lags. 
+Whilst most autocorrelations are within the confidence intervals, a significant negative correlation at lag 13 suggests there is a season pattern that repeats every 13 periods, so if a series is above average at one point, it tends to be below average 13 periods later and vice versa. 
+Furthermore, a lag on the border of significance at 20 suggests a possible longer cynical effect, although this is not as pronounced.
+This is also evident for lag 9 since it is just below significance in the SACF but is significant in the SPACF, indicating a direct negative influence from the observation 9 periods ago on the current observation, after accounting for the influences of all observations in between. 
+In summary, there is no consistent pattern of significant lags, which would typically be used to identify AR or MA components. 
+The presence of significant lags informs us the time series is not white noise and exhibits autocorrelation. 
+
+\subparagraph{Daily Log-returns}
+
+The plot indicates considerable fluctuation around the mean of \amu, whilst the returns do not display a clear trend or seasonal pattern. 
+The volatility appears to be clustered in certain periods, indicative of heteroskedacity where periods of high volatility are followed by high volatility and vice versa. 
+
+\subsection*{Question b}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\rowcolor{gray!50}
+\multicolumn{3}{|c|}{GARCH} & \multicolumn{3}{|c|}{GJR-GARCH} \\ 
+\hline
+Parameter & Estimate & P-value & Parameter & Estimate & P-value \\ 
+\hline
+$\omega$ & \bw & \bpi & $\omega$ & \bwii & \bpgi \\
+\hline
+$\alpha$ & \ba & \bpii & $\alpha$ & \baii & \bpgii \\
+\hline
+ $\beta$ & \bb & \bpiii & $\beta$ & \bbii & \bpgiii \\
+\hline
+GARCH-t & & & $\gamma$ & \bgii & \bpgiv \\
+\hline
+ $\omega$& \bwi & \bpti & GJR-GARCH-t &  & \\
+\hline
+ $\alpha$& \bai & \bptii & $\omega$ & \bwiii & \bpgtp \\
+\hline
+ $\beta$ & \bbi & \bptiii & $\alpha$ & \baiii & \bpgtpi \\
+\hline
+$\nu$ & \bvi & \bptiv & $\beta$ & \bbiii & \bpgtpii \\
+\hline
+& & & $\gamma$ & \bgiii & \bpgtpiii \\
+\hline
+& & & $\nu$ & \bviii & \bpgtpiv \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\subsubsection*{Interpretation:}
+
+Where $\omega$ is the constant term of the model, representing the long run average variance when all other terms are zero, 
+ $\alpha$ is the coefficient representing the contribution of past squared innovations (lagged error terms) to the current variance, indicating how much past volatility affects current volatility. 
+  $\beta$ is the coefficient representing the contribution of past conditional variance to the current variance, capturing the persistence of volatility shocks. 
+  $\gamma$ is the coefficient specific to GJR-GARCH models, capturing the asymmetric effect of negative shocks (leverage effect), where negative shocks have a different impact on volatility than positive shocks of the same magnitude. 
+  $\nu$ is the degrees of freedom parameter in the t-distribution and is related to the kurtosis of the distribution, with lower values indicating heavier tails. 
+
+For the GARCH model with a normal distribution, the estimates for $\alpha$ and $\beta$ are \bw and \bb, respectively with p values indicating that only $\alpha$ is statistically significant at a conventional level ($p < 0.05$). Thus the model suggests that past shocks have a significant impact on current volatility, but the effect is not persistent. 
+
+For the GARCH-t model, $\beta$ is signifiant, indicating persistence in volatility and $\nu$ is also significant, suggesting that the distribution of innovations has heavier tails than the normal distribution. 
+Thus, the presence of heavy tails in the data is signifiant, which could be important fore forecasting \ldots
+
+For the GJR-GARCH model, $\omega$ is significant, but $\alpha$ and $\beta$ are very small with correspondingly very large p-values. 
+Thus, negative shocks might have a different impact on volatility, although this effect is not statistically significant at the 5\% level
+
+For the GJR-GARCH-t model, both $\alpha$ and $\beta$ are significant, indicating that past shocks and volatility are important for current volatility, and $\nu$ is significant, indicating heavy tails. 
+Although, $\gamma$ is not significant, suggesting the asymmetric effects of shocks is not statistically significant. 
+Thus, both past shocks and heavy tails are significant in modelling volatility but asymmetric effects of shocks are not significant. 
+
+Overall, a garch-t or GJR-GARCH-t model might be preferred
+
+
+\subsection*{Question c}
+\subsubsection*{Plot of NIC}
+ 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{../../docs/figures/NIC.png}
+    \caption{News Impact Curve Plot}
+    \label{fig:logreturn}
+\end{figure}
+
+\subsubsection*{Interpretation:}
+This plot offers a visual representation of the effect that new information has on the volatility predicted by different GARCH models. 
+The standard GARCH model with normal innovations shows that the impact on conditional variance is symmetrical, both positive and negative shocks of the same magnitude have the same effect on predicted volatility, leaving the leverage effect unaccounted for. 
+
+The GARCH model with a student's t-distribution is also symmetric but flatter compared to the standard GARCH model, indicating less sensitivity to shocks in general, due to the heavier tails in the t-distribution, reducing the impact of outliers. 
+
+The GJR-GARCH model with normal distribution shows a pronounced asymmetry where negative shocks increase the conditional variance more than positive shocks. 
+The model accounts for the leverage effect, where bad news influences volatility more than good news. 
+
+The GJR-GARCH model with Student's t-distribution combines the properties of the GJR-GARCH with the heavier tails of the t-distribution. Showing an asymmetrical impact of shocks on volatility, similar to the GJR-GARCH but with the additional effect of heavier tails in the distribution of shocks. 
+Heavier tails may imply that extreme values are more probable than in a normal distortion, and the impact curve is less steep for large magnitude shocks, indicating large shocks increase volatility less than what a normal distribution would suggest. 
+Overall, both models with Student's t-distribution suggests that the models account for heavy tails in the distribution of shocks, whilst the GJR-GRACH models reveal an asymmetric response to shocks, highlighting the importance of the leverage effect. 
+
+\subsection*{Question d}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\rowcolor{headercolor}
+GARCH & Test statistic & P-value \\ 
+\hline
+Z & \zone & \pone \\ 
+\hline
+\(Z^2\) & \zfive & \pfive \\ 
+\hline
+\rowcolor{headercolor}
+GARCH-t & Test statistic & P-value \\ 
+\hline
+Z & \ztwo & \ptwo \\ 
+\hline
+\(Z^2\) & \zsix & \psix \\ 
+\hline
+\end{tabular}
+\quad % To add some spacing between the two tables
+\begin{tabular}{|l|c|c|}
+\hline
+\rowcolor{headercolor}
+GJR-GARCH & Test statistic & P-value \\ 
+\hline
+Z & \zthree & \pthree \\ 
+\hline
+\(Z^2\) &  \zseven & \pseven \\ 
+\hline
+\rowcolor{headercolor}
+GJR-GARCH-t & Test statistic & P-value \\ 
+\hline
+Z & \zfour & \pfour \\ 
+\hline
+\(Z^2\) & \zeight & \peight \\ 
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection*{Interpretation:}
+% Your interpretation here
+
+\subsection*{Question e}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\rowcolor{gray!50}
+& GARCH & GARCH-t & GJR-GARCH & GJR-GARCH-t \\
+\hline
+RMSFE & \rmsfei & \rmsfeii & \rmsfeiii & \rmsfeiv \\
+\hline
+DM Test statistic & NA & \dm & \dmi & \dmii \\
+\hline
+P-value & NA & \dmpii & \dmpiv & \dmpv \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection*{Interpretation:}
+% Your interpretation here
+
+\subsection*{Question f}
+\subsubsection*{Interpretation:}
+% Your interpretation here
+
+\section*{Appendix}
+
+\lstinputlisting[language=R]{../../code/Script.R}
+
+For reproduction of said script, see 
+
+
+
+\end{document}
+

@@ -1,0 +1,13 @@
+\input{preamble.tex}
+
+Descriptive Statistics:
+\mu{ 0.09622246 }
+\sigma{ 1.825435 }
+\skew{ -0.3221676 }
+\kurt{ 4.259391 }
+
+Moment Tests:
+\tstat{ 0.8334509 } & \pval{ 0.4045905 }
+\tstat{ -2.079583 } & \pval{ 0.03756379 }
+\tstat{ 4.064667 } & \pval{ 4.810116e-05 }
+\tstat{ 20.84618 } & \pval{ 2.973783e-05 }
