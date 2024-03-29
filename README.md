@@ -2,8 +2,9 @@
 
 Author: 10710007
 
-Financial Econmetrics Solo Coursework Group 11
+Financial Econometrics Coursework Group 11
 
+Main Script : Script.R
 
 
 
