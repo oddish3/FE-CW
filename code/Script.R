@@ -306,7 +306,7 @@ write_latex("../results/results.tex", df_test, append = TRUE, section_title = "r
 
 # e) 1 step 2ahead forecasting the conditional variance ----
 
-H = 2
+H = 250
 T = length(data$log.return) - H
 f1 = f2 = f3 = f4 = matrix(0, H, 1)  # Initialize forecast for each model
 
@@ -348,33 +348,19 @@ rmsfe = function(e) {
 }
 
 # dm test
-# Compute squared losses
-loss1 = e1^2
-loss2 = e2^2
-loss3 = e3^2
-loss4 = e4^2
-
-# Compute loss differentials
-diff12 = loss1 - loss2
-diff13 = loss1 - loss3
-diff14 = loss1 - loss4
-
-# Conduct one-sided t-tests to compare the mean of the loss differentials to zero
-# Here, alternative = "less" indicates you're testing if the candidate model has lower loss than the benchmark
-t_test_12 = t.test(diff12, alternative = "less", mu = 0)
-t_test_13 = t.test(diff13, alternative = "less", mu = 0)
-t_test_14 = t.test(diff14, alternative = "less", mu = 0)
-
+dm_test_12 = dm.test(e1, e2, alternative = "less", h = 1, power = 2, varestimator = "acf")
+dm_test_13 = dm.test(e1, e3, alternative = "less", h = 1, power = 2, varestimator = "acf")
+dm_test_14 = dm.test(e1, e4, alternative = "less", h = 1, power = 2, varestimator = "acf")
 
 # Extract DM test statistics and p-values
-dm_stat_12 = t_test_12$statistic
-p_value_12 = t_test_12$p.value
+dm_stat_12 = dm_test_12$statistic
+p_value_12 = dm_test_12$p.value
 
-dm_stat_13 = t_test_13$statistic
-p_value_13 = t_test_13$p.value
+dm_stat_13 = dm_test_13$statistic
+p_value_13 = dm_test_13$p.value
 
-dm_stat_14 = t_test_14$statistic
-p_value_14 = t_test_14$p.value
+dm_stat_14 = dm_test_14$statistic
+p_value_14 = dm_test_14$p.value
 
 
 rmsfe_dm_df = data.frame(

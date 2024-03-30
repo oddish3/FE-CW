@@ -9,7 +9,7 @@
 \usepackage{colortbl}
 \usepackage{xspace}
 \usepackage{hyperref}
-
+\usepackage{parskip}
 
 \usepackage{listings}
 \lstset{% setup parameters for listings:
@@ -19,7 +19,8 @@
                          % font causes incorrect alignment of plain-text columns.
   backgroundcolor=\color{gray!10},
   keywordstyle=\bfseries\color{black!90},
-  numbers=left, numberstyle=\small\sffamily, stepnumber=5, numbersep=5pt}
+  %numbers=left, numberstyle=\small\sffamily, stepnumber=5, numbersep=5pt
+}
 
 \usepackage{titlesec}
 \titleformat{\subparagraph}
@@ -58,10 +59,43 @@
 \section*{Theoretical exercise}
 
 \subsection*{Question a}
-% Answer goes here
+
+Comparing the given model 
+\begin{equation}
+\sigma_t^2=\omega+\alpha_1 \varepsilon_{t-1}^2+\alpha_2 \varepsilon_{t-2}^2
+\end{equation}
+
+with the simplest GARCH(1,1) model 
+ \begin{equation}
+ \sigma^2_{t} = \omega + \alpha_1 \epsilon^2_{t-1} + \beta_1 \sigma^2_{t-1} , \ \ \ 0 \le \alpha_1, \ \beta_1 \le 1 , \ \left( \alpha_1 + \beta_1 \right) ) < 1
+ \end{equation} 
+
+In the ARCH framework, the assumption that holds / goes through is that the $E \left[ \epsilon_t \right] = E \left[ z_{t} \sigma^2_{t} \right]= 0 $, no matter th process assumed on $\sigma^2_{t}$
+
+In order to derive  the unconditional expectation of the error term, $E \left[ \epsilon_t \right]$
+
+We rewrite the expectation with the given equation as $\sqrt{E \left[ z_{t} \sigma^2_{t} \right]}$
+
+Thus, the $\textnormal{Var}(\epsilon_t)$ is given by the $E \left[ \epsilon_t^2 \right]$. 
+Then using the AR(1) representation, we can rewrite as 
+  \[
+	  E \left[ \omega + \alpha \epsilon_{t-1}^2 + \nu_t  \right] = \omega + \alpha E \left[ \epsilon^2_{t-1} \right] + E \left[ \nu_t  \right]
+ \] 
+
+ then since we have stationarity, where $|\alpha| < 1$, this
+
+
+Both models build on the assumption that current volatility (variance) depends on past squared residuals, embodying the volatility clustering effect prevalent in financial time series, and assume that the error term follows a normal distribution.
+
+The primary distinction emerges in the model's complexity; the given model operates as a GARCH(2,1), integrating two lagged squared residuals,  and  compared to the GARCH(1,1)'s single lagged squared residual, , and one lagged variance term.
+
+This additional lagged term in the GARCH(2,1) model not only increases its complexity but also enhances its ability to capture longer-term volatility patterns, offering potentially more accurate forecasts for series with complex dynamics than the simpler GARCH(1,1) model.
+
 
 \subsection*{Question b}
-% Answer goes here
+
+Within the ARCH model, we assume the error term $\epsilon_t$ is a martingale difference sequence, implying its conditional expectation, given past information $\ensuremath{\mathcal{F}}{t-1}$, is zero: $E[\epsilon_t | \ensuremath{\mathcal{F}}{t-1}] = 0$. For the unconditional mean of $\epsilon_t$, applying the Law of Iterated Expectations (LIE) yields $E[\epsilon_t] = E[E[\epsilon_t | \ensuremath{\mathcal{F}}{t-1}]]$. Given $\epsilon_t$ is a martingale difference sequence, this simplifies to $E[\epsilon_t] = 0$. Utilizing $\epsilon_t$'s properties, the unconditional variance is derived by calculating the expected value of $\epsilon_t^2$, simplified via the LIE as $\textnormal{Var}(\epsilon_t) = E[\epsilon_t^2] = E[\epsilon_t^2 | \ensuremath{\mathcal{F}}{t-1}]$.
+
 
 \subsection*{Question c}
 % Answer goes here
@@ -114,7 +148,7 @@ Kurtosis & \akurt & JB & \ajbt & \ajbp \\
 
 \subsubsection*{SACF and SPACF}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{../../docs/figures/PACF.png}
     \caption{Sample Autocorrelation and Partial Autocorrelation Function Plot}
@@ -274,6 +308,8 @@ Overall, a garch-t or GJR-GARCH-t model might be preferred
 \end{figure}
 
 \subsubsection*{Interpretation:}
+Drawbacks of the GARCH models are obvious here, since the conditional variance is unable to respond asymmetrically to shocks in $y_{t}$, that is, a positive return has the same effect as a negative return upon variance. Since it is argued that negative innovations to shock returns tend to increase volatility more than positive innovations of the same magnitude. 
+
 This plot offers a visual representation of the effect that new information has on the volatility predicted by different GARCH models. 
 The standard GARCH model with normal innovations shows that the impact on conditional variance is symmetrical, both positive and negative shocks of the same magnitude have the same effect on predicted volatility, leaving the leverage effect unaccounted for. 
 
@@ -328,7 +364,16 @@ Z & \zfour & \pfour \\
 \end{table}
 
 \subsubsection*{Interpretation:}
-% Your interpretation here
+
+High p-values for the residuals indicate there is no statistical evidence to reject the null hypothesis that the residuals follow the respective distributions. 
+Suggesting the residuals are white noise, meaning they are normally distributed with no autocorrelation. 
+
+For the squared residuals, the p-values are high but slightly less so, again suggesting that there is no statistical evidence to reject the null hypothesis of no autocorrelation in the squared residuals. Indicating there is no ARCH effect and the conditional variance is well captured by the model. 
+
+Whilst the LBQ p-values for the residuals are very high across all models, suggesting that none of the models leaves unexplained autocorrelation in the returns, which means that all models are adequate in this respect. 
+
+The p-values for the squared residuals, which help to identify volatility clustering or ARCH effects, are also high across all models. 
+However, in this context, the model with the highest p-value (corresponding to lowest test stat) for the square residuals is the GARCH-t model, indicating the least amount of autocorrelation and possibly the best fit among the compared models. 
 
 \subsection*{Question e}
 
@@ -349,12 +394,23 @@ P-value & NA & \dmpii & \dmpiv & \dmpv \\
 \end{table}
 
 \subsubsection*{Interpretation:}
-% Your interpretation here
+
+The RMSFE values indicate that GARCH+ has the smallest forecast error at 7.29, followed by GJR-GARCH-t at 7.30, GARCH at 7.32, and GJR-GARCH at 7.32. Lower RMSFE values suggest better forecast accuracy.
+
+Diebold-Mariano (DM) Test results are only meaningful for GARCH+ and GJR-GARCH-t since GARCH is the benchmark. For GARCH+, the DM Test statistic is 2.00 with a p-value of 0.98, and for GJR-GARCH-t, the statistic is 1.83 with a p-value of 0.97. Since the p-values are much higher than the typical significance levels (e.g., 0.05 or 0.10), there's no statistical evidence that the forecast accuracy of GARCH+ and GJR-GARCH-t is different from GARCH.
+
+Thus, although GARCH+ has a slightly lower RMSFE, the Diebold-Mariano test does not confirm its superiority over the benchmark GARCH model in terms of predictive accuracy. Economically, this suggests that there might be no practical benefit from using more complex models over the simpler GARCH model for forecasting this particular variance, as they do not provide statistically significant improvements in forecast accuracy.
 
 \subsection*{Question f}
 \subsubsection*{Interpretation:}
-% Your interpretation here
 
+In terms of the trade-off between model misspecification and estimation noise, models with more parameters, like GARCH+ and GJR-GARCH-t, can potentially fit the data better and capture more complex structures in volatility, thus reducing model misspecification. However, they also introduce more estimation noise due to the increased number of parameters that need to be estimated.
+
+The simpler GARCH model, with fewer parameters, may be more robust to estimation noise but might suffer from model misspecification if the true variance process has features like asymmetry or time-varying volatility that it cannot capture.
+
+Therefore, while more complex models can offer a better fit, they might not necessarily result in better out-of-sample forecasting performance due to the additional estimation noise. The choice of model should balance the risks of misspecification against the potential for increased noise from estimating more parameters.
+
+\newpage
 \section*{Appendix}
 
 For reproduction of said script, see \url{https://github.com/oddish3/FE-CW/tree/master}
