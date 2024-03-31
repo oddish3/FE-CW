@@ -10,23 +10,19 @@
 \usepackage{xspace}
 \usepackage{hyperref}
 \usepackage{parskip}
+\usepackage{amsmath}
 
 \usepackage{listings}
-\lstset{% setup parameters for listings:
-  columns=fullflexible,  % avoids addition of extra spaces in unexpected positions
-  keepspaces,            % causes alignment-by-spaces to be preserved in output
-  basicstyle=\ttfamily,  % With fullflexible and keepspaces, using a non-monospaced
-                         % font causes incorrect alignment of plain-text columns.
-  backgroundcolor=\color{gray!10},
-  keywordstyle=\bfseries\color{black!90},
-  %numbers=left, numberstyle=\small\sffamily, stepnumber=5, numbersep=5pt
-}
+
 
 \usepackage{titlesec}
 \titleformat{\subparagraph}
     {\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}
 \titlespacing*{\subparagraph}{\parindent}{3.25ex plus 1ex minus .2ex}{.75ex plus .1ex}
 
+
+\input{/home/oddish3/Documents/uni/mast-2/preamble.tex}
+\input{/home/oddish3/Documents/uni/mast-2/notation.tex}
 \input{../../results/results.tex}
 
 % Define colours
@@ -60,50 +56,113 @@
 
 \subsection*{Question a}
 
-Comparing the given model 
+Comparing the extended GARCH model, given by:
 \begin{equation}
-\sigma_t^2=\omega+\alpha_1 \varepsilon_{t-1}^2+\alpha_2 \varepsilon_{t-2}^2
+\sigma_t^2 = \omega + \alpha_1 \varepsilon_{t-1}^2 + \alpha_2 \varepsilon_{t-2}^2,
 \end{equation}
+with the canonical GARCH(1,1) model:
+\begin{equation}
+\sigma^2_{t} = \omega + \alpha_1 \epsilon^2_{t-1} + \beta_1 \sigma^2_{t-1}, \quad 0 \leq \alpha_1, \beta_1 \leq 1, \quad (\alpha_1 + \beta_1) < 1,
+\end{equation}
+we elucidate both foundational similarities and pivotal differences. Both frameworks integrate the premise that current volatility, $\sigma^2_{t}$, is a function of past squared residuals ($\varepsilon^2$ and $\epsilon^2$), addressing the volatility clustering phenomenon observed in financial markets.
 
-with the simplest GARCH(1,1) model 
- \begin{equation}
- \sigma^2_{t} = \omega + \alpha_1 \epsilon^2_{t-1} + \beta_1 \sigma^2_{t-1} , \ \ \ 0 \le \alpha_1, \ \beta_1 \le 1 , \ \left( \alpha_1 + \beta_1 \right) ) < 1
- \end{equation} 
+The augmented GARCH(2,1) model introduces an additional term, $\alpha_2 \varepsilon_{t-2}^2$, enhancing its capability to encapsulate longer-term volatility dependencies relative to the GARCH(1,1) model. This inclusion is aimed at capturing a broader spectrum of volatility dynamics, thereby potentially increasing forecasting precision for series exhibiting complex volatility patterns.
 
-In the ARCH framework, the assumption that holds / goes through is that the $E \left[ \epsilon_t \right] = E \left[ z_{t} \sigma^2_{t} \right]= 0 $, no matter th process assumed on $\sigma^2_{t}$
+The parameter constraints in the GARCH(1,1) model, specifically the conditions $0 \leq \alpha_1, \beta_1 \leq 1$ and $(\alpha_1 + \beta_1) < 1$, are crucial for ensuring the model's stability and preventing the persistence of shocks from generating unbounded variance. These constraints necessitate careful consideration in the extended model to maintain its predictive integrity and prevent overfitting.
 
-In order to derive  the unconditional expectation of the error term, $E \left[ \epsilon_t \right]$
-
-We rewrite the expectation with the given equation as $\sqrt{E \left[ z_{t} \sigma^2_{t} \right]}$
-
-Thus, the $\textnormal{Var}(\epsilon_t)$ is given by the $E \left[ \epsilon_t^2 \right]$. 
-Then using the AR(1) representation, we can rewrite as 
-  \[
-	  E \left[ \omega + \alpha \epsilon_{t-1}^2 + \nu_t  \right] = \omega + \alpha E \left[ \epsilon^2_{t-1} \right] + E \left[ \nu_t  \right]
- \] 
-
- then since we have stationarity, where $|\alpha| < 1$, this
-
-
-Both models build on the assumption that current volatility (variance) depends on past squared residuals, embodying the volatility clustering effect prevalent in financial time series, and assume that the error term follows a normal distribution.
-
-The primary distinction emerges in the model's complexity; the given model operates as a GARCH(2,1), integrating two lagged squared residuals,  and  compared to the GARCH(1,1)'s single lagged squared residual, , and one lagged variance term.
-
-This additional lagged term in the GARCH(2,1) model not only increases its complexity but also enhances its ability to capture longer-term volatility patterns, offering potentially more accurate forecasts for series with complex dynamics than the simpler GARCH(1,1) model.
-
+Empirically, selecting between these models is contingent on the observed dynamics within the financial time series of interest. While the extended GARCH(2,1) model may offer superior forecast accuracy for series with nuanced volatility patterns, this comes at the expense of increased model complexity and the risk of overfitting. This dichotomy accentuates the significance of empirical validation and judicious model selection in the realm of financial econometrics.
 
 \subsection*{Question b}
 
-Within the ARCH model, we assume the error term $\epsilon_t$ is a martingale difference sequence, implying its conditional expectation, given past information $\ensuremath{\mathcal{F}}{t-1}$, is zero: $E[\epsilon_t | \ensuremath{\mathcal{F}}{t-1}] = 0$. For the unconditional mean of $\epsilon_t$, applying the Law of Iterated Expectations (LIE) yields $E[\epsilon_t] = E[E[\epsilon_t | \ensuremath{\mathcal{F}}{t-1}]]$. Given $\epsilon_t$ is a martingale difference sequence, this simplifies to $E[\epsilon_t] = 0$. Utilizing $\epsilon_t$'s properties, the unconditional variance is derived by calculating the expected value of $\epsilon_t^2$, simplified via the LIE as $\textnormal{Var}(\epsilon_t) = E[\epsilon_t^2] = E[\epsilon_t^2 | \ensuremath{\mathcal{F}}{t-1}]$.
+The unconditional mean of the error term, $E \left[ \epsilon_t \right]$ is given by
+\[
+	E \left[ \epsilon_t \right] = E \left[ z_{t}  \right] = E \left[ \sqrt{\sigma_t^2}   \right]   = 0 \cdot E \left[ \sigma_t \right] = 0
+\]
+Since by definition of $z_t \stackrel{i . i . d .}{\sim} \mathcal{N}(0,1)$, $E \left[ z_{t} \right] =0$ follows a standard normal distribution. 
+
+To derive the unconditional variance, we express $\epsilon_t^2$ as an AR(2) process 
+
+\begin{align*}
+\sigma_t^2 + \epsilon_t^2 &= \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \epsilon_{t-2}^2 + \epsilon_t^2 \\
+\epsilon_t^2 &= \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \epsilon_{t-2}^2 + (\epsilon_t^2 - \sigma_t^2) \\
+\Rightarrow \epsilon_t^2 &= \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \epsilon_{t-2}^2 + \nu_t \hspace{5mm} \text{where} \ \nu_t = \epsilon_t^2 - \sigma_t^2 \ \text{is a white noise process}  
+\end{align*}
+
+Thus, we can rewrite 
+
+\begin{align*}
+V(\epsilon_t) & \\
+E[\epsilon_t] &= E\left[ \frac{\epsilon_t^2}{\sigma_t^2} \right] = 0 \hspace{5mm} \text{given } |\alpha| < 1 \\
+V(\epsilon_t) &= E[\epsilon_t^2] \\
+&= E[\omega + \alpha \epsilon_{t-1}^2 + \nu_t] \\
+&= \omega + \alpha E[\epsilon_{t-1}^2] + E[\nu_t] \\
+&= \omega + \alpha E[\epsilon_{t-1}^2] \\
+E[\epsilon_{t-1}^2] - \alpha E[\epsilon_{t-1}^2] &= \omega \\
+E[\epsilon_{t-1}^2] (1 - \alpha) &= \omega \\
+E[\epsilon_{t-1}^2] &= \frac{\omega}{1 - \alpha}
+\end{align*}
 
 
 \subsection*{Question c}
-% Answer goes here
+
+Using $\text{Cov} (X, Y) = E[XY] - E[X]E[Y]$ we derive the covariance, where $\sigma^2_{t+1} = \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \epsilon^2_{t-2}) \epsilon_t$
+
+\begin{align*}
+\text{Cov}(\sigma^2_{t+1}, \epsilon_t | F_{t-1}) &= E[ \sigma^2_{t+1} \epsilon_t | F_{t-1}] - E[\sigma^2_{t+1}| F_{t-1} ] E[\epsilon_{t-1} | F_{t-1})
+\end{align*}
+
+Given that $\epsilon_t$ has a conditional expectation of 0, the second term becomes 0, leaving
+
+\begin{align*}
+E[ \sigma^2_{t+1} \epsilon_t | \ensuremath{\mathcal{F}}_{t-1}] = E \left[ \left( \omega + \alpha_1 \epsilon_t^2 + \alpha_2 \epsilon^2_{t-1} \right) \epsilon_t^2 \right] \\
+&= E \left[  \omega \epsilon_t + \alpha_1 \epsilon_t^3 + \alpha_2 \epsilon^2_{t-1}  \epsilon_t  \right]
+\end{align*}
+
+Then,  since $\omega$ is a constant and the conditional mean of $\epsilon_t =0$ (previously shown), the first term disappears. 
+
+Then, simplifying further, since $\sigma^2_{t}$ is $\ensuremath{\mathcal{F}}_{t-1}$deterministic 
+We can use the property $E[XY \mid \mathcal{F}_{t-1}] = E[X \mid \mathcal{F}_{t-1}]E[Y \mid \mathcal{F}_{t-1}]$ for independent random variables $X$ and $Y$:
+
+\begin{equation}
+E[\alpha_2 \sigma_t^2 \epsilon_t \mid \mathcal{F}_{t-1}] = \alpha_2 \sigma_t^2 E[\epsilon_t \mid \mathcal{F}_{t-1}] = 0
+\end{equation}
+
+Therefore, we obtain:
+
+\begin{equation}
+\alpha_1 E[\epsilon_t^3 \mid \mathcal{F}_{t-1}]
+\end{equation}
+
+Which we can rewrite as
+ \[
+ a_1 E \left[ zt^3 \right] E \left[ ( \omega + \alpha_1 \epsilon_t^2 + \alpha_2 \epsilon^2_{t-1} )^\frac{3}{2} \mid \ensuremath{\mathcal{F}}_{t-1}  \right] 
+ \] 
+ \[
+ = \alpha_1 \left( \omega + \alpha_1 \epsilon_t^2 + \alpha_2 \epsilon^2_{t-1} \right) )^{\frac{3}{2}} E \left[ z_{t}^3 \right]  
+ \] 
+35:52 GARCH
+
+
 
 \subsection*{Question d}
-% Answer goes here
+
+With our ARCH(2) model, the 1 step ahead forecast is : $\sigma^2_{t+1 | t}  = \omega + \alpha_1  \epsilon^2_{t}  + \alpha_2  \epsilon^2_{t-1}$
+
+Analogously the 2 step ahead forecast, where we take expectation of $\epsilon_t^2$, and use the unit variance of $z_{t}$ to simplify 
+\begin{align*}
+\sigma^2_{t+2 | t}  = E_t \left[  \omega + \alpha_1  \epsilon^2_{t+1}  + \alpha_2  \epsilon^2_{t}  \right] =   \omega + \alpha_1  \sigma^2_{t+1|t}  + \alpha_2  \sigma^2_{t}  
+\end{align*}
+
+Similarly for the 3-step ahead forecast, following the same logic
+
+ \begin{align*}
+ 	\sigma^2_{t+3 | t} = E_t \left[  \omega + \alpha_1  \epsilon^2_{t+2}  + \alpha_2  \epsilon^2_{t+1}  \right] =   \omega + \alpha_1  \sigma^2_{t+2|t}  + \alpha_2  \sigma^2_{t+1} \equiv E \left[ \sigma^2_{t+3} | F_{t} \right] 
+ \end{align*}
 
 \subsection*{Question e}
+
+
+
 
 \section*{Practical exercise}
 \subsection*{Question a}
@@ -141,7 +200,7 @@ Kurtosis & \akurt & JB & \ajbt & \ajbp \\
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{../../docs/figures/log_return_plot.png}
+    \includegraphics[width=0.35\textwidth]{../../docs/figures/log_return_plot.png}
     \caption{Log Return Plot}
     \label{fig:logreturn}
 \end{figure}
@@ -150,7 +209,7 @@ Kurtosis & \akurt & JB & \ajbt & \ajbp \\
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{../../docs/figures/PACF.png}
+    \includegraphics[width=0.35\textwidth]{../../docs/figures/PACF.png}
     \caption{Sample Autocorrelation and Partial Autocorrelation Function Plot}
     \label{fig:pacf}
 \end{figure}
@@ -302,7 +361,7 @@ Overall, a garch-t or GJR-GARCH-t model might be preferred
  
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{../../docs/figures/NIC.png}
+    \includegraphics[width=0.35\textwidth]{../../docs/figures/NIC.png}
     \caption{News Impact Curve Plot}
     \label{fig:logreturn}
 \end{figure}
