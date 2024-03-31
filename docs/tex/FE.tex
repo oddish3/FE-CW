@@ -56,21 +56,17 @@
 
 \subsection*{Question a}
 
-Comparing the extended GARCH model, given by:
-\begin{equation}
-\sigma_t^2 = \omega + \alpha_1 \varepsilon_{t-1}^2 + \alpha_2 \varepsilon_{t-2}^2,
-\end{equation}
-with the canonical GARCH(1,1) model:
-\begin{equation}
-\sigma^2_{t} = \omega + \alpha_1 \epsilon^2_{t-1} + \beta_1 \sigma^2_{t-1}, \quad 0 \leq \alpha_1, \beta_1 \leq 1, \quad (\alpha_1 + \beta_1) < 1,
-\end{equation}
-we elucidate both foundational similarities and pivotal differences. Both frameworks integrate the premise that current volatility, $\sigma^2_{t}$, is a function of past squared residuals ($\varepsilon^2$ and $\epsilon^2$), addressing the volatility clustering phenomenon observed in financial markets.
+Similarities 
+\begin{itemize}
+	\item Both models account for volatility clustering, where periods of high (low) volatility are followed by periods of high (low) volatility 
+		\item Both models include lagged square error terms $\epsilon^2_{t}$ in ARCH(2) and both $\epsilon^2$ and $\sigma^2$ in GARCH(1,1) 
+\end{itemize}
 
-The augmented GARCH(2,1) model introduces an additional term, $\alpha_2 \varepsilon_{t-2}^2$, enhancing its capability to encapsulate longer-term volatility dependencies relative to the GARCH(1,1) model. This inclusion is aimed at capturing a broader spectrum of volatility dynamics, thereby potentially increasing forecasting precision for series exhibiting complex volatility patterns.
-
-The parameter constraints in the GARCH(1,1) model, specifically the conditions $0 \leq \alpha_1, \beta_1 \leq 1$ and $(\alpha_1 + \beta_1) < 1$, are crucial for ensuring the model's stability and preventing the persistence of shocks from generating unbounded variance. These constraints necessitate careful consideration in the extended model to maintain its predictive integrity and prevent overfitting.
-
-Empirically, selecting between these models is contingent on the observed dynamics within the financial time series of interest. While the extended GARCH(2,1) model may offer superior forecast accuracy for series with nuanced volatility patterns, this comes at the expense of increased model complexity and the risk of overfitting. This dichotomy accentuates the significance of empirical validation and judicious model selection in the realm of financial econometrics.
+Differences
+\begin{itemize}
+	\item In the GARCH(1,1) model, past squared residuals and past variances both influence the current variance but in the ARCH(2) model, it only considers past squared residuals,  reducing the persistence of shocks
+	\item The GARCH(1,1) has a mean-reverting component through the $\sigma^2_{t-1}$ term, which isn't present in the ARCH(2) model 
+\end{itemize}
 
 \subsection*{Question b}
 
@@ -99,8 +95,56 @@ V(\epsilon_t) &= E[\epsilon_t^2] \\
 &= \omega + \alpha E[\epsilon_{t-1}^2] \\
 E[\epsilon_{t-1}^2] - \alpha E[\epsilon_{t-1}^2] &= \omega \\
 E[\epsilon_{t-1}^2] (1 - \alpha) &= \omega \\
-E[\epsilon_{t-1}^2] &= \frac{\omega}{1 - \alpha}
+E[\epsilon_{t-1}^2] &= \frac{\omega}{1 - \alpha_1 - \alpha_2}
 \end{align*}
+
+Assuming $\alpha_1 + \alpha_2 < 1$ for stationarity
+
+NEEEEEEEEEEEEEEEEEEEEEEEEDS MERGINGGGGGGGGGGGGGGGGGGG
+
+Let \( \mathcal{F}_{t-1} \) be the past history of the process, then the conditional expectation of \( \epsilon_t \) is given by:
+\begin{equation}
+E(\epsilon_t | \mathcal{F}_{t-1}) = E(\sigma_t V_t | \mathcal{F}_{t-1}) = \sigma_t E(V_t | \mathcal{F}_{t-1}) = 0
+\end{equation}
+Thus:
+\begin{equation}
+E(\epsilon_t) = E(E(\epsilon_t | \mathcal{F}_{t-1})) = E(0) = 0
+\end{equation}
+
+To derive the second moment, note that you can express \( \epsilon_t^2 \) as an ARMA(1,1)-process:
+\begin{equation}
+\epsilon_t^2 = \alpha_0 + (\alpha_1 + \beta_1)\epsilon_{t-1}^2 + w_t - \beta_1 w_{t-1}
+\end{equation}
+with \( w_t = \epsilon_t^2 - \sigma_t^2 \) being a WN process.
+
+It holds that:
+\begin{equation}
+E(\epsilon_t^2 | \mathcal{F}_{t-1}) = E(\sigma_t^2 V_t^2 | \mathcal{F}_{t-1}) = \sigma_t^2 E(V_t^2 | \mathcal{F}_{t-1}) = \sigma_t^2 \cdot 1 = \sigma_t^2
+\end{equation}
+Thus:
+\begin{equation}
+E(w_t | \mathcal{F}_{t-1}) = E(\epsilon_t^2 | \mathcal{F}_{t-1}) - \sigma_t^2 = \sigma_t^2 - \sigma_t^2 = 0
+\end{equation}
+Therefore:
+\begin{equation}
+E(w_t) = E(E(w_t | \mathcal{F}_{t-1})) = E(0) = 0
+\end{equation}
+
+This allows us to write:
+\begin{equation}
+E(\epsilon_t^2) = \alpha_0 + (\alpha_1 + \beta_1)E(\epsilon_{t-1}^2) + E(w_t) - \beta_1 E(w_{t-1}) = \alpha_0 + (\alpha_1 + \beta_1)E(\epsilon_{t-1}^2)
+\end{equation}
+Assuming stationarity, we conclude that \( E(\epsilon_{t-1}^2) = E(\epsilon_t^2) \) and hence:
+\begin{equation}
+\mathrm{Var}(\epsilon_t) = E(\epsilon_t^2) - (E(\epsilon_t))^2 = E(\epsilon_t^2) = \frac{\alpha_0}{1 - (\alpha_1 + \beta_1)}
+\end{equation}
+If we impose the restriction \( \alpha_1 + \beta_1 < 1 \), \( \mathrm{Var}(\epsilon_t) \) exists and is finite.
+
+Now, observe that:
+\begin{equation}
+\mathrm{Cov}(\epsilon_t, \epsilon_{t-\tau}) = E(\epsilon_t \epsilon_{t-\tau}) - E(\epsilon_t)E(\epsilon_{t-\tau}) = E(\epsilon_t \epsilon_{t-\tau}) - E(\epsilon_t | \mathcal{F}_{t-1})E(\epsilon_{t-\tau} | \mathcal{F}_{t-1}) = 0
+\end{equation}
+
 
 
 \subsection*{Question c}
@@ -141,8 +185,12 @@ Which we can rewrite as
  = \alpha_1 \left( \omega + \alpha_1 \epsilon_t^2 + \alpha_2 \epsilon^2_{t-1} \right) )^{\frac{3}{2}} E \left[ z_{t}^3 \right]  
  \] 
 35:52 GARCH
+NEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEDDS CHECKING - WATCH OVER VID
 
+If $z_t$ follows a symmetric distribution like the standard normal, the third moment is 0. 
+The leverage effect refers to the tendency for negative innovations (negative returns) to be associated with higher future volatility, and positive innovations (positive returns) to be associated with lower future volatility.
 
+if the standardized innovation z_t has a symmetric distribution, meaning its third moment E[z_t^3] is zero, then the covariance between ε_t and σ^2_(t+1) will be zero. This implies that the model cannot capture the leverage effect, which is the tendency for negative shocks to have a different impact on volatility than positive shocks.
 
 \subsection*{Question d}
 
@@ -162,7 +210,54 @@ Similarly for the 3-step ahead forecast, following the same logic
 \subsection*{Question e}
 
 
+For an ARCH(2) model, the conditional variance is given by:
+\begin{equation}
+\sigma_t^2 = \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \epsilon_{t-2}^2,
+\end{equation}
+where \( \sigma_t^2 \) is the conditional variance, \( \epsilon_t \) is the residual at time t, and \( \omega, \alpha_1, \alpha_2 \) are non-negative parameters.
 
+The news impact curve (NIC) equation incorporates asymmetric effects and can be expressed as:
+\begin{equation}
+\sigma_t^2 = \omega + \alpha_1 (|\epsilon_{t-1}| + \gamma_1 \epsilon_{t-1})^2 + \alpha_2 (|\epsilon_{t-2}| + \gamma_2 \epsilon_{t-2})^2,
+\end{equation}
+with leverage parameters \( \gamma_1 \) and \( \gamma_2 \). If \( \gamma_1 = \gamma_2 = 0 \), the NIC is symmetric. Asymmetric effects are introduced when \( \gamma_1 \neq 0 \) or \( \gamma_2 \neq 0 \), indicative of a leverage effect.
+
+Expanding the equation, we have:
+\begin{equation}
+\sigma_t^2 = \omega + \alpha_1 (\epsilon_{t-1}^2 + 2\gamma_1 |\epsilon_{t-1}|\epsilon_{t-1} + \gamma_1^2 \epsilon_{t-1}^2) + \alpha_2 (\epsilon_{t-2}^2 + 2\gamma_2 |\epsilon_{t-2}|\epsilon_{t-2} + \gamma_2^2 \epsilon_{t-2}^2),
+\end{equation}
+demonstrating the dependence of \( \sigma_t^2 \) on \( \epsilon_{t-1} \) and \( \epsilon_{t-2} \), and the asymmetry introduced by \( \gamma_1 \) and \( \gamma_2 \).
+\begin{equation}
+\text{NIC}(\epsilon_{t-1} | \sigma_{t-1}^2 = \sigma_Y^2) = \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \sigma_Y^2.
+\end{equation}
+
+AAAAAAAAAAAASSSSYMMMETRIC ARCH? 
+ not sure
+
+For an ARCH(2) model, the conditional variance is typically given by:
+\begin{equation}
+\sigma_t^2 = \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \epsilon_{t-2}^2,
+\end{equation}
+where \( \sigma_t^2 \) is the conditional variance, \( \epsilon_t \) is the residual at time t, and \( \omega, \alpha_1, \alpha_2 \) are non-negative parameters.
+
+The news impact curve (NIC) extends this model to account for asymmetric effects, which is especially relevant in financial data where 'bad' and 'good' news might have different impacts on volatility. This is captured by introducing leverage parameters \( \gamma_1 \) and \( \gamma_2 \), modifying the model as follows:
+\begin{equation}
+\sigma_t^2 = \omega + \alpha_1 (|\epsilon_{t-1}| + \gamma_1 \epsilon_{t-1})^2 + \alpha_2 (|\epsilon_{t-2}| + \gamma_2 \epsilon_{t-2})^2,
+\end{equation}
+where \( \gamma_1 \) and \( \gamma_2 \) represent the additional impact of negative shocks to volatility compared to positive ones. 
+
+Expanding the NIC equation, we have:
+\begin{equation}
+\sigma_t^2 = \omega + \alpha_1 (\epsilon_{t-1}^2 + 2\gamma_1 |\epsilon_{t-1}|\epsilon_{t-1} + \gamma_1^2 \epsilon_{t-1}^2) + \alpha_2 (\epsilon_{t-2}^2 + 2\gamma_2 |\epsilon_{t-2}|\epsilon_{t-2} + \gamma_2^2 \epsilon_{t-2}^2),
+\end{equation}
+which illustrates how conditional variance depends on both the magnitude and sign of the previous shocks, with \(\gamma_1\) and \(\gamma_2\) dictating the asymmetry of the impact.
+
+To visualize the news impact curve for the most recent shock \(\epsilon_{t-1}\), while considering the conditional variances at their long-term average (unconditional variance \(\sigma_Y^2\)), we use the equation:
+\begin{equation}
+\text{NIC}(\epsilon_{t-1} | \sigma_{t-1}^2 = \sigma_Y^2) = \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \sigma_Y^2.
+\end{equation}
+
+The NIC is typically plotted with \(\epsilon_{t-1}\) on the x-axis and \(\sigma_t^2\) on the y-axis, showing the relationship between the magnitude of the shock and the resulting volatility. The asymmetry will be evident if the curve is not symmetric around zero, indicating that the model predicts different levels of volatility for positive and negative shocks of the same magnitude.
 
 \section*{Practical exercise}
 \subsection*{Question a}
@@ -463,11 +558,15 @@ Thus, although GARCH+ has a slightly lower RMSFE, the Diebold-Mariano test does 
 \subsection*{Question f}
 \subsubsection*{Interpretation:}
 
-In terms of the trade-off between model misspecification and estimation noise, models with more parameters, like GARCH+ and GJR-GARCH-t, can potentially fit the data better and capture more complex structures in volatility, thus reducing model misspecification. However, they also introduce more estimation noise due to the increased number of parameters that need to be estimated.
+The choice of GARCH model involves a tradeoff between model misspecification and estimation noise. On one hand, simpler models like the standard GARCH have fewer parameters and are less prone to estimation noise, but may suffer from misspecification if the true volatility process exhibits features that the model cannot capture (e.g., asymmetry, time-varying volatility).
 
-The simpler GARCH model, with fewer parameters, may be more robust to estimation noise but might suffer from model misspecification if the true variance process has features like asymmetry or time-varying volatility that it cannot capture.
+More flexible models like the GJR-GARCH or GARCH with additional components (GARCH+) can potentially better fit the data by accounting for these complexities, reducing misspecification. However, they require estimating more parameters, introducing greater estimation noise.
 
-Therefore, while more complex models can offer a better fit, they might not necessarily result in better out-of-sample forecasting performance due to the additional estimation noise. The choice of model should balance the risks of misspecification against the potential for increased noise from estimating more parameters.
+While complex models offer an improved in-sample fit, they do not necessarily outperform simpler models in out-of-sample forecasting due to the increased estimation noise. The benefits of reduced misspecification may be offset by the noise from estimating additional parameters, especially in small samples.
+
+Ultimately, the optimal model balances the competing goals of parsimony and flexibility. Simple models are preferred when estimation noise is a greater concern, while more complex specifications are justified if the true data-generating process exhibits features that warrant additional modeling components, even at the cost of some estimation noise.
+
+Model selection criteria like information criteria aim to navigate this tradeoff by penalizing overly complex models. However, the final choice depends on the relative importance of in-sample fit versus out-of-sample forecasting performance for the specific application.
 
 \newpage
 \section*{Appendix}
