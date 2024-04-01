@@ -235,30 +235,21 @@ Kurtosis & \akurt & JB & \ajbt & \ajbp \\
 \end{figure}
 
 \subsection*{Interpretation}
-Looking at the Descriptive Statistics, a skewness of \askew suggests that the distribution of returns negatively skewed, meaning there are more extreme negative returns than positive returns. 
-Whilst a kurtosis of \akurt is slightly higher than a normal distribution (3), suggesting the distribution of returns has heavier tails and more extreme values.
+Looking at the Descriptive Statistics, a skewness of \askew suggests there are more extreme negative returns than positive returns. 
+Whilst a slightly higher kurtosis of \akurt suggests the distribution of returns has heavier tails and more extreme values.
 
-Looking at the Test Statistics, testing mean returns are zero ($H_0 : \mu =0$ against $H_1 : \mu \neq = 0$) with a one-sided test.
-Obtaining \amut with a p-value of \amup, we fail to reject $H_0$ at all conventional significance levels, since we do not have enough evidence to conclude the mean return is significantly different from zero. 
+Looking at the Test Statistics, testing mean returns are zero ($H_0 : \mu =0$ against $H_1 : \mu \neq 0$) with a one-sided test, we obtain a p-value of \amup, meaning we fail to reject $H_0$ at all conventional significance levels, we do not have enough evidence to conclude the mean return is zero. 
 
-Testing the skewness of the return series is zero ($ H_1: \gamma = 0$ against $H_1 : \gamma \neq = 0$)
-We obtain \askewt with a p-value of \askewp, since the p-value is less than 0.05, we reject the null hypothesis in favour of the alternative hypothesis. 
-Thus, the distribution of returns is significantly skewed, and hence non-symmetric. 
-Testing for leptokurtic property in the returns ($H_0 : \kappa = 3$ against $H_1 : \kappa \neq 3 $)
-We obtain \akurt and p value of $\akurtp$, thus we reject $H_0$, in favour of the alternative hypothesis that the returns have significantly different kurtosis from 3, confirming the presence of heavy tails in the distribution. 
+Testing the skewness of the return series is zero ($ H_1: \gamma = 0$ against $H_1 : \gamma \neq 0$) with a one-sided test, we obtain a p-value of \askewp and thus we reject the null hypothesis in favour of the alternative hypothesis that the distribution of returns is significantly skewed, and hence non-symmetric. 
 
-Using the Jargue-Bera test for normality ($H_0 : \gamma = 0 \& \kappa = 3$ against $H_0 : \gamma \neq 0 \& \kappa \neq 3$) 
+Testing for the leptokurtic property in the returns ($H_0 : \kappa = 3$ against $H_1 : \kappa \neq 3 $) using a one-sided test, we obtain a p value of $\akurtp$, thus we reject the null hypothesis in favour of the alternative hypothesis that the returns have a significantly different kurtosis from 3, confirming the presence of heavy tails in the distribution. 
 
-Obtaining \ajbt with a p-value of \ajbp, we reject $H_0$ in favour of $H_1$, that the distribution of returns differs significantly from normality, evidence by its skewness and kurtosis values. 
+Using the Jargue-Bera test for normality ($H_0 : \gamma = 0 \& \kappa = 3$ against $H_0 : \gamma \neq 0 \& \kappa \neq 3$)  we obtain a p-value of \ajbp, thus we reject the null hypothesis in favour of the alternative hypothesis that the distribution of returns differs significantly from normality, as evidenced by the skewness and kurtosis. 
 
-Testing the autocorrelation of the financial time series returns ($H_0: \rho_1 = \rho_2 = \ldots = \rho_{21} = 0$ against $H_1: \rho_i \neq 0$ for some $i \in \{1, 2, \ldots, 21 \}$)
+Using the LBQ test for the autocorrelation of the returns ($H_0: \rho_1 = \rho_2 = \ldots = \rho_{21} = 0$ against $H_1: \rho_i \neq 0$ for some $i \in \{1, 2, \ldots, 21 \}$), we obtain a p-value of 0.17 and 0.22 for the squared returns, hence we do not reject the null hypothesis at any conventional significance level, and thus there is no significant evidence of autocorrelation in the returns of the series.
 
-Obtaining a p-value of 0.17, we do not reject the null hypothesis at all conventional significance levels, thus, there is no significant evidence of autocorrelation in the returns of the series.
-We proceed analogously for the squared returns, arriving at the same conclusion, indicating no significant evidence of autocorrelation in the volatility (squared returns) of the series. 
-
-For the plots, there is no consistent pattern of significant lags in both plots, however a significant negative correlation at lag 13 alongside lags approaching significance at 9 and 20 suggests some evidence for a seasonal pattern, however the presence of significant lags informs us the time series is not white noise and exhibits some autocorrelation. 
-
-The Daily Log-returns plot does not display a clear trend or seasonal pattern, although the volatility appears to be clustered in certain periods, indicative of heteroskedacity.
+Whilst the Daily Log-returns do not display a clear trend or seasonal pattern, though the volatility appears to be clustered in certain periods, indicative of heteroskedacity, there is no consistent pattern of significant lags in both the SACF and SPACF.
+Though a significant negative correlation at lag 13 alongside lags approaching significance at 9 and 20 suggests some evidence for a seasonal pattern, however the presence of significant lags mainly inform us the time series is not white noise and exhibits some autocorrelation. 
 
 \subsection*{Question b}
 
@@ -297,26 +288,14 @@ $\nu$ & \bvi & \bptiv & $\beta$ & \bbiii & \bpgtpii \\
 
 \subsubsection*{Interpretation:}
 
-Where $\omega$ is the constant term of the model, representing the long run average variance when all other terms are zero, 
- $\alpha$ is the coefficient representing the contribution of past squared innovations (lagged error terms) to the current variance, indicating how much past volatility affects current volatility. 
-  $\beta$ is the coefficient representing the contribution of past conditional variance to the current variance, capturing the persistence of volatility shocks. 
-  $\gamma$ is the coefficient specific to GJR-GARCH models, capturing the asymmetric effect of negative shocks (leverage effect), where negative shocks have a different impact on volatility than positive shocks of the same magnitude. 
-  $\nu$ is the degrees of freedom parameter in the t-distribution and is related to the kurtosis of the distribution, with lower values indicating heavier tails. 
+For the GARCH model, a significant $\beta$ at the 1\% level suggests past volatility is very important to current volatility, whilst a significant $\alpha$ at the 10\% level suggests lagged squared returns are important in current volatility under a standard normal distribution.  
+Under a student-t distribution, the relationship on $\beta$ holds though $\alpha$ loses significance after the inclusion of $\nu$, which suggests heavy tails are important in the GARCH-t model, rather than lagged squared returns which may have been masking the effect under a normal distribution. 
 
-For the GARCH model with a normal distribution, the estimates for $\alpha$ and $\beta$ are \bw and \bb, respectively with p values indicating that only $\alpha$ is statistically significant at a conventional level ($p < 0.05$). Thus the model suggests that past shocks have a significant impact on current volatility, but the effect is not persistent. 
-
-For the GARCH-t model, $\beta$ is signifiant, indicating persistence in volatility and $\nu$ is also significant, suggesting that the distribution of innovations has heavier tails than the normal distribution. 
-Thus, the presence of heavy tails in the data is signifiant, which could be important fore forecasting \ldots
-
-For the GJR-GARCH model, $\omega$ is significant, but $\alpha$ and $\beta$ are very small with correspondingly very large p-values. 
-Thus, negative shocks might have a different impact on volatility, although this effect is not statistically significant at the 5\% level
-
-For the GJR-GARCH-t model, both $\alpha$ and $\beta$ are significant, indicating that past shocks and volatility are important for current volatility, and $\nu$ is significant, indicating heavy tails. 
-Although, $\gamma$ is not significant, suggesting the asymmetric effects of shocks is not statistically significant. 
-Thus, both past shocks and heavy tails are significant in modelling volatility but asymmetric effects of shocks are not significant. 
-
-Overall, a garch-t or GJR-GARCH-t model might be preferred
-
+For the  GJR-GARCH model, $\beta$ remains significant at the 1\% level, suggesting past volatility remains important to current volatility upon the inclusion of the asymmetric impact of shocks. 
+Although a negative $\gamma$ suggests positive shocks to returns increase future volatility more than negative shocks. 
+Still, the $\alpha$ parameter becomes less certain with a larger p-value
+Under a student's t-distribution for the GJR-GARCH model, $\beta$ and $\nu$ are significant, indicating the presence of heavy tails in the data is signifiant that could be important in modelling the current variance when accounting for asymmetries. 
+Since they are similar in magnitude to the GARCH-t model a distribution with heavier tails is motivated, whilst asymmetric effects are not in the data. 
 
 \subsection*{Question c}
 \subsubsection*{Plot of NIC}
@@ -325,23 +304,15 @@ Overall, a garch-t or GJR-GARCH-t model might be preferred
     \centering
     \includegraphics[width=0.35\textwidth]{../../docs/figures/NIC.png}
     \caption{News Impact Curve Plot}
-    \label{fig:logreturn}
+    \label{fig:nic}
 \end{figure}
 
-\subsubsection*{Interpretation:}
-Drawbacks of the GARCH models are obvious here, since the conditional variance is unable to respond asymmetrically to shocks in $y_{t}$, that is, a positive return has the same effect as a negative return upon variance. Since it is argued that negative innovations to shock returns tend to increase volatility more than positive innovations of the same magnitude. 
+\subsubsection*{Interpretation}
 
-This plot offers a visual representation of the effect that new information has on the volatility predicted by different GARCH models. 
-The standard GARCH model with normal innovations shows that the impact on conditional variance is symmetrical, both positive and negative shocks of the same magnitude have the same effect on predicted volatility, leaving the leverage effect unaccounted for. 
 
-The GARCH model with a student's t-distribution is also symmetric but flatter compared to the standard GARCH model, indicating less sensitivity to shocks in general, due to the heavier tails in the t-distribution, reducing the impact of outliers. 
-
-The GJR-GARCH model with normal distribution shows a pronounced asymmetry where negative shocks increase the conditional variance more than positive shocks. 
-The model accounts for the leverage effect, where bad news influences volatility more than good news. 
-
-The GJR-GARCH model with Student's t-distribution combines the properties of the GJR-GARCH with the heavier tails of the t-distribution. Showing an asymmetrical impact of shocks on volatility, similar to the GJR-GARCH but with the additional effect of heavier tails in the distribution of shocks. 
-Heavier tails may imply that extreme values are more probable than in a normal distortion, and the impact curve is less steep for large magnitude shocks, indicating large shocks increase volatility less than what a normal distribution would suggest. 
-Overall, both models with Student's t-distribution suggests that the models account for heavy tails in the distribution of shocks, whilst the GJR-GRACH models reveal an asymmetric response to shocks, highlighting the importance of the leverage effect. 
+In \cref{fig:nic} we can see that the GJR news impact curve captures the asymmetry in the effect of news on volatility since it has a steeper slope on its positive side than its negative compared to the GARCH model which inherently does not capture the asymmetry.
+The student's t-distribution in GJR-GARCH combines both the asymmetry of shocks (leverage effect) and the reduced impact of outliers, highlighting the importance of the leverage effect - properties which may enable better fitting of empirical returns.
+Thus, in a market uptick like AN AI boom, under a GJR-GARCH-t model the impact of the asymmetry and heavy tails is more pronounced for the GJR-GARCH, so positive shocks to returns will increase future volatility more than negative shocks, which is counter to the usual leverage effect observed in financial markets. 
 
 \subsection*{Question d}
 
@@ -386,15 +357,11 @@ Z & \zfour & \pfour \\
 
 \subsubsection*{Interpretation:}
 
-High p-values for the residuals indicate there is no statistical evidence to reject the null hypothesis that the residuals follow the respective distributions. 
-Suggesting the residuals are white noise, meaning they are normally distributed with no autocorrelation. 
+Though there are high p-values for the residuals across all models, indicating there is no statistical evidence to reject the null hypothesis that the residuals follow the respective distributions (and are thus white noise (normally distributed with no autocorrelation))
 
-For the squared residuals, the p-values are high but slightly less so, again suggesting that there is no statistical evidence to reject the null hypothesis of no autocorrelation in the squared residuals. Indicating there is no ARCH effect and the conditional variance is well captured by the model. 
-
-Whilst the LBQ p-values for the residuals are very high across all models, suggesting that none of the models leaves unexplained autocorrelation in the returns, which means that all models are adequate in this respect. 
-
-The p-values for the squared residuals, which help to identify volatility clustering or ARCH effects, are also high across all models. 
-However, in this context, the model with the highest p-value (corresponding to lowest test stat) for the square residuals is the GARCH-t model, indicating the least amount of autocorrelation and possibly the best fit among the compared models. 
+We are mainly interested in the p-values for the squared residuals to identify volatility clustering or ARCH effects
+Accordingly, the model with the highest p-value for the square residuals is the GARCH-t model, indicating the least amount of autocorrelation is the GJR-GARCH-t. 
+Though we would want to verify this with model selection criteria rather than a box test.
 
 \subsection*{Question e}
 
@@ -416,24 +383,25 @@ P-value & NA & \dmpii & \dmpiv & \dmpv \\
 
 \subsubsection*{Interpretation:}
 
-The RMSFE values indicate that GARCH+ has the smallest forecast error at 7.29, followed by GJR-GARCH-t at 7.30, GARCH at 7.32, and GJR-GARCH at 7.32. Lower RMSFE values suggest better forecast accuracy.
+Interpreting the results, the GARCH-t is the best model with the lowest RMSFE at 7.29. 
+Although the Diebold-Mariano test suggests that the original GARCH model may have better forecast accuracy, with much higher p-values than conventional significance levels (e.g., 0.05 or 0.10), there's no statistical evidence that the forecast accuracy of GARCH-t and GJR-GARCH-t is any different from GARCH.
 
-Diebold-Mariano (DM) Test results are only meaningful for GARCH+ and GJR-GARCH-t since GARCH is the benchmark. For GARCH+, the DM Test statistic is 2.00 with a p-value of 0.98, and for GJR-GARCH-t, the statistic is 1.83 with a p-value of 0.97. Since the p-values are much higher than the typical significance levels (e.g., 0.05 or 0.10), there's no statistical evidence that the forecast accuracy of GARCH+ and GJR-GARCH-t is different from GARCH.
-
-Thus, although GARCH+ has a slightly lower RMSFE, the Diebold-Mariano test does not confirm its superiority over the benchmark GARCH model in terms of predictive accuracy. Economically, this suggests that there might be no practical benefit from using more complex models over the simpler GARCH model for forecasting this particular variance, as they do not provide statistically significant improvements in forecast accuracy.
+Empirically, this suggests that a more parsimonious, simpler GARCH model may have the edge over more complex models for forecasting this particular variance, as they do not provide statistically significant improvements in forecast accuracy.
 
 \subsection*{Question f}
 \subsubsection*{Interpretation:}
 
 The choice of GARCH model involves a tradeoff between model misspecification and estimation noise. On one hand, simpler models like the standard GARCH have fewer parameters and are less prone to estimation noise, but may suffer from misspecification if the true volatility process exhibits features that the model cannot capture (e.g., asymmetry, time-varying volatility).
 
-More flexible models like the GJR-GARCH or GARCH with additional components (GARCH+) can potentially better fit the data by accounting for these complexities, reducing misspecification. However, they require estimating more parameters, introducing greater estimation noise.
+More flexible models like the GJR-GARCH or GARCH with a student's t-distribution (GARCH+) could potentially fit the data better by accounting for these complexities such as  positive leverage effects, and hence reducing misspecification. 
+However, this requires estimating more parameters which inherently introduces greater estimation noise.
 
-While complex models offer an improved in-sample fit, they do not necessarily outperform simpler models in out-of-sample forecasting due to the increased estimation noise. The benefits of reduced misspecification may be offset by the noise from estimating additional parameters, especially in small samples.
+While complex models may offer an improved in-sample fit, there is no guarantee for this in out-of-sample forecasting due to the curse of dimensionality resulting in increased estimation noise. 
+The benefits of reduced misspecification may be offset by the noise from estimating additional parameters, especially in small samples.
 
-Ultimately, the optimal model balances the competing goals of parsimony and flexibility. Simple models are preferred when estimation noise is a greater concern, while more complex specifications are justified if the true data-generating process exhibits features that warrant additional modeling components, even at the cost of some estimation noise.
+Ultimately, model selection criteria such as AIC and BIC should be used to inform the tradeoff between  model misspecification and estimation noise. 
+By penalising overly complex models, Simple GARCH models are preferred since they are more stable when estimating and thus have less estimation noise.
 
-Model selection criteria like information criteria aim to navigate this tradeoff by penalizing overly complex models. However, the final choice depends on the relative importance of in-sample fit versus out-of-sample forecasting performance for the specific application.
 
 \newpage
 \section*{Appendix}

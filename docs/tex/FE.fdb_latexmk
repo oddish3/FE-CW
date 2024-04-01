@@ -1,10 +1,10 @@
 # Fdb version 4
-["pdflatex"] 1711960678.31497 "FE.tex" "FE.pdf" "FE" 1711960680.427 0
-  "../../code/Script.R" 1711722588.37097 12754 03f9c28b220aaf613076620434d2aba7 ""
-  "../../docs/figures/NIC.png" 1711722589.94695 32137 5e52e12e394f8665e08132825ca7da1b ""
-  "../../docs/figures/PACF.png" 1711789864.97886 11296 31ec4f583ffd965e6bb9ad45b9da651a ""
-  "../../docs/figures/log_return_plot.png" 1711722588.58697 46843 509c19ff113b061d94cd9c08af7657b6 ""
-  "../../results/results.tex" 1711722780.60685 2708 41e27344c5bc4984cd7109f83aa0afe1 ""
+["pdflatex"] 1711968336.02607 "FE.tex" "FE.pdf" "FE" 1711968338.62608 0
+  "../../code/Script.R" 1711963109.71356 12717 1243b4dbb43cf59f8c70ceab9eb17f06 ""
+  "../../docs/figures/NIC.png" 1711963117.01357 34134 f61025c3efac60d2a7380532481915c1 ""
+  "../../docs/figures/PACF.png" 1711963115.41756 11296 31ec4f583ffd965e6bb9ad45b9da651a ""
+  "../../docs/figures/log_return_plot.png" 1711963115.45756 46843 509c19ff113b061d94cd9c08af7657b6 ""
+  "../../results/results.tex" 1711963268.77776 2709 b1cb57523e939e336568adaf9cb6300e ""
   "/home/oddish3/Documents/uni/mast-2/notation.tex" 1709827201.22528 5632 647374be248a25bf70afaa197c4ef01d ""
   "/home/oddish3/Documents/uni/mast-2/preamble.tex" 1710534946.45526 8605 86a1db8498293e8ec2890e8b13b310a9 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
@@ -291,9 +291,9 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1706302873.14758 4993097 9a4fc1f062d9d0f055c7bc5a5f93f223 ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1706303008 8211060 ec8d35680bb029999249faf71ec2ded8 ""
   "/usr/local/texlive/2023/texmf.cnf" 1706302867.74757 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "FE.aux" 1711960679.89301 1300 4b86a9d11e317809533ba3c87e07ea59 "pdflatex"
-  "FE.out" 1711960679.48901 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "FE.tex" 1711960674.549 23395 1bda381e610cbc4976a5dcde03957e95 ""
+  "FE.aux" 1711968337.46754 1288 1b3e22fc15f46e554fd1a5851e92087f "pdflatex"
+  "FE.out" 1711968337.02354 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "FE.tex" 1711968333.03153 19720 6fb9faea6067531b0d474c3e0ab913ed ""
   (generated)
   "FE.aux"
   "FE.log"

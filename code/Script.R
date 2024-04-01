@@ -107,7 +107,7 @@ dev.off()
 spec1 =  ugarchspec(variance.model = list(model = "sGARCH", garchOrder = c(1, 1)), 
                     mean.model = list(armaOrder = c(0, 0), include.mean = FALSE) ,distribution.model = "norm")
 
-fit1 = ugarchfit(spec = spec1, data = data$log.return)
+fit1 = ugarchfit(spec = spec1, data = in_sample)
 
 estimates1 = fit1@fit$robust.matcoef[,1]  # This extracts the "Estimate" column
 p_values1 = fit1@fit$robust.matcoef[,4]  # This extracts the "Pr(>|t|)" column
@@ -117,7 +117,7 @@ p_values1 = fit1@fit$robust.matcoef[,4]  # This extracts the "Pr(>|t|)" column
 spec2 = ugarchspec(variance.model = list(model = "sGARCH", garchOrder = c(1, 1)),
                    mean.model = list(armaOrder = c(0, 0), include.mean = FALSE),
                    distribution.model = "std")  # 'std' for Student's t-distribution
-fit2 = ugarchfit(spec = spec2, data = data$log.return)
+fit2 = ugarchfit(spec = spec2, data = in_sample)
 
 estimates2 = fit2@fit$robust.matcoef[,1]  # This extracts the "Estimate" column
 p_values2 = fit2@fit$robust.matcoef[,4]  # This extracts the "Pr(>|t|)" column
@@ -129,7 +129,7 @@ spec3 = ugarchspec(
   distribution.model = "norm" # Standard normal distribution for innovations
 )
 
-fit3 = ugarchfit(spec = spec3, data = data$log.return)
+fit3 = ugarchfit(spec = spec3, data = in_sample)
 estimates3 = fit3@fit$robust.matcoef[,1]  # This extracts the "Estimate" column
 p_values3 = fit3@fit$robust.matcoef[,4]  # This extracts the "Pr(>|t|)" column
 
@@ -139,7 +139,7 @@ spec4 = ugarchspec(
   mean.model = list(armaOrder = c(0, 0), include.mean = FALSE),
   distribution.model = "std"  # 'std' for Student's t-distribution
 )
-fit4 = ugarchfit(spec = spec4, data = data$log.return)
+fit4 = ugarchfit(spec = spec4, data = in_sample)
 estimates4 = fit4@fit$robust.matcoef[,1]  # This extracts the "Estimate" column
 p_values4 = fit4@fit$robust.matcoef[,4] 
 
@@ -222,7 +222,7 @@ v4 = estimates4["shape"]
 # Unconditional variance from the first GARCH(1,1) model
 ve = w1 / (1 - a1 - b1)
 
-# NIC from tutorial ----
+# NIC  ----
 T = 500
 e = seq(-5, 5, length.out = T)  # Grid of shocks epsilon
 nicG1 = nicG2 = nicGJR1 = nicGJR2 = rep(0, T)  # Initialize NIC for each model
