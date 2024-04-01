@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.26)  31 MAR 2024 23:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.26)  1 APR 2024 09:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1144,83 +1144,36 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 LaTeX Font Info:    Trying to load font information for U+stmry on input line 45.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/stmaryrd/Ustmry.fd) [1
 
-{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [2]
-./FE.tex:193: Missing $ inserted.
-<inserted text> 
-                $
-l.193 if the standardized innovation z_
-                                       t has a symmetric distribution, meani...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-./FE.tex:193: LaTeX Error: Unicode character ε (U+03B5)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.193 ...] is zero, then the covariance between ε
-                                                  _t and σ^2_(t+1) will be ...
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-
-./FE.tex:193: LaTeX Error: Unicode character σ (U+03C3)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.193 ..., then the covariance between ε_t and σ
-                                                  ^2_(t+1) will be zero. Thi...
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-./FE.tex:194: Missing $ inserted.
-<inserted text> 
-                $
-l.194 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (111.6249pt too wide) in paragraph at lines 193--194
-[]\T1/cmr/m/n/10 if the stan-dard-ized in-no-va-tion z$[]\OML/cmm/m/it/10 hasasymmetricdistribution; meaningitsthirdmomentE\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 z[]\OT1/cmr/m/n/10 ]\OML/cmm/m/it/10 iszero; thenthecovariancebetween[]and[]t \OT1/cmr/m/n/10 +
+{/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+Overfull \hbox (6.71292pt too wide) detected at line 131
+[]
  []
 
-
-Overfull \hbox (268.86241pt too wide) in paragraph at lines 193--194
-\OT1/cmr/m/n/10 1)\OML/cmm/m/it/10 willbezero:Thisimpliesthatthemodelcannotcapturetheleverageeffect; whichisthetendencyfornegativeshockstohaveadifferentimpactonvolatilitythanpositiveshocks:$ 
- []
-
-[3] [4]
-<../../docs/figures/log_return_plot.png, id=57, 481.8pt x 481.8pt>
+[2]
+<../../docs/figures/log_return_plot.png, id=35, 481.8pt x 481.8pt>
 File: ../../docs/figures/log_return_plot.png Graphic file (type png)
 <use ../../docs/figures/log_return_plot.png>
-Package pdftex.def Info: ../../docs/figures/log_return_plot.png  used on input line 298.
+Package pdftex.def Info: ../../docs/figures/log_return_plot.png  used on input line 223.
 (pdftex.def)             Requested size: 165.2138pt x 165.21399pt.
-<../../docs/figures/PACF.png, id=58, 481.8pt x 481.8pt>
+ [3]
+<../../docs/figures/PACF.png, id=46, 481.8pt x 481.8pt>
 File: ../../docs/figures/PACF.png Graphic file (type png)
 <use ../../docs/figures/PACF.png>
-Package pdftex.def Info: ../../docs/figures/PACF.png  used on input line 307.
+Package pdftex.def Info: ../../docs/figures/PACF.png  used on input line 232.
 (pdftex.def)             Requested size: 165.2138pt x 165.21399pt.
- [5 <../../docs/figures/log_return_plot.png (PNG copy)> <../../docs/figures/PACF.png (PNG copy)>] [6] [7]
-<../../docs/figures/NIC.png, id=77, 481.8pt x 481.8pt>
+ [4 <../../docs/figures/log_return_plot.png (PNG copy)> <../../docs/figures/PACF.png (PNG copy)>] [5]
+<../../docs/figures/NIC.png, id=59, 481.8pt x 481.8pt>
 File: ../../docs/figures/NIC.png Graphic file (type png)
 <use ../../docs/figures/NIC.png>
-Package pdftex.def Info: ../../docs/figures/NIC.png  used on input line 459.
+Package pdftex.def Info: ../../docs/figures/NIC.png  used on input line 326.
 (pdftex.def)             Requested size: 165.2138pt x 165.21399pt.
- [8 <../../docs/figures/NIC.png (PNG copy)>] [9] [10]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 574.
+ [6 <../../docs/figures/NIC.png (PNG copy)>] [7] [8]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 441.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 576.
- (../../code/Script.R [11] [12] [13] [14] [15]) [16] (./FE.aux)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 443.
+ (../../code/Script.R [9] [10] [11] [12] [13]) [14] (./FE.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -1233,18 +1186,18 @@ Package rerunfilecheck Info: File `FE.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 37075 strings out of 474222
- 684727 string characters out of 5746180
+ 37058 strings out of 474222
+ 684484 string characters out of 5746180
  2155975 words of memory out of 5000000
- 58228 multiletter control sequences out of 15000+600000
+ 58222 multiletter control sequences out of 15000+600000
  580801 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 109i,12n,112p,1191b,3554s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 109i,13n,112p,1191b,3554s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on FE.pdf (16 pages, 424013 bytes).
+Output written on FE.pdf (14 pages, 410222 bytes).
 PDF statistics:
- 678 PDF objects out of 1000 (max. 8388607)
- 615 compressed objects within 7 object streams
- 430 named destinations out of 1000 (max. 500000)
+ 658 PDF objects out of 1000 (max. 8388607)
+ 598 compressed objects within 6 object streams
+ 419 named destinations out of 1000 (max. 500000)
  28 words of extra memory for PDF output out of 10000 (max. 10000000)
 

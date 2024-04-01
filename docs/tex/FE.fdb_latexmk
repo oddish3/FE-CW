@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1711923836.03464 "FE.tex" "FE.pdf" "FE" 1711923838.41904 2
+["pdflatex"] 1711960678.31497 "FE.tex" "FE.pdf" "FE" 1711960680.427 0
   "../../code/Script.R" 1711722588.37097 12754 03f9c28b220aaf613076620434d2aba7 ""
   "../../docs/figures/NIC.png" 1711722589.94695 32137 5e52e12e394f8665e08132825ca7da1b ""
   "../../docs/figures/PACF.png" 1711789864.97886 11296 31ec4f583ffd965e6bb9ad45b9da651a ""
@@ -291,9 +291,9 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1706302873.14758 4993097 9a4fc1f062d9d0f055c7bc5a5f93f223 ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1706303008 8211060 ec8d35680bb029999249faf71ec2ded8 ""
   "/usr/local/texlive/2023/texmf.cnf" 1706302867.74757 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "FE.aux" 1711923837.79807 1855 8b98ecf8f1339cd4e6e58ecccdae3ddb "pdflatex"
-  "FE.out" 1711923837.37807 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "FE.tex" 1711923830.93406 31715 5a691b9780e1acba1e59a12eed095b9a ""
+  "FE.aux" 1711960679.89301 1300 4b86a9d11e317809533ba3c87e07ea59 "pdflatex"
+  "FE.out" 1711960679.48901 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "FE.tex" 1711960674.549 23395 1bda381e610cbc4976a5dcde03957e95 ""
   (generated)
   "FE.aux"
   "FE.log"

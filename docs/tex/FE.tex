@@ -56,141 +56,89 @@
 
 \subsection*{Question a}
 
-Similarities 
+When comparing the ARCH(2) model : $\sigma^2_{t} = \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \epsilon^2_{t-2})$ to a GARCH(1,1)) : $\sigma^2_{t} = \omega + \alpha_1 \epsilon_{t-1}^2 + \beta_2 \sigma^2_{t-1})$
+
+The following similarities emerge :
 \begin{itemize}
-	\item Both models account for volatility clustering, where periods of high (low) volatility are followed by periods of high (low) volatility 
-		\item Both models include lagged square error terms $\epsilon^2_{t}$ in ARCH(2) and both $\epsilon^2$ and $\sigma^2$ in GARCH(1,1) 
+	\item Both models capture the cluster effect where periods of high (low) volatility are followed by periods of high (low) volatility (probabilistically) 
+		\item Both model capture overkurtosis, accounting for a heavier tail distribution than the standard norm
+		\item If $z_{t}$ is not symmetric, then $\cov(\epsilon_t, \sigma^2_{t+1} | \ensuremath{\mathcal{F}}_{t-1})$ would not be zero, and both model are able to capture leverage (asymmetric) effects 
 \end{itemize}
 
-Differences
+Though with key differences that
 \begin{itemize}
-	\item In the GARCH(1,1) model, past squared residuals and past variances both influence the current variance but in the ARCH(2) model, it only considers past squared residuals,  reducing the persistence of shocks
-	\item The GARCH(1,1) has a mean-reverting component through the $\sigma^2_{t-1}$ term, which isn't present in the ARCH(2) model 
+	\item An arch model implies an AR model for the squared residuals whilst a GARCH model implies an ARMA model in both squared residuals and variance
+	\item Fir the GARCH model $b_1$ can be unidentified if $a_1=0$
 \end{itemize}
 
 \subsection*{Question b}
 
-The unconditional mean of the error term, $E \left[ \epsilon_t \right]$ is given by
-\[
-	E \left[ \epsilon_t \right] = E \left[ z_{t}  \right] = E \left[ \sqrt{\sigma_t^2}   \right]   = 0 \cdot E \left[ \sigma_t \right] = 0
-\]
-Since by definition of $z_t \stackrel{i . i . d .}{\sim} \mathcal{N}(0,1)$, $E \left[ z_{t} \right] =0$ follows a standard normal distribution. 
-
-To derive the unconditional variance, we express $\epsilon_t^2$ as an AR(2) process 
-
-\begin{align*}
-\sigma_t^2 + \epsilon_t^2 &= \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \epsilon_{t-2}^2 + \epsilon_t^2 \\
-\epsilon_t^2 &= \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \epsilon_{t-2}^2 + (\epsilon_t^2 - \sigma_t^2) \\
-\Rightarrow \epsilon_t^2 &= \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \epsilon_{t-2}^2 + \nu_t \hspace{5mm} \text{where} \ \nu_t = \epsilon_t^2 - \sigma_t^2 \ \text{is a white noise process}  
-\end{align*}
-
-Thus, we can rewrite 
-
-\begin{align*}
-V(\epsilon_t) & \\
-E[\epsilon_t] &= E\left[ \frac{\epsilon_t^2}{\sigma_t^2} \right] = 0 \hspace{5mm} \text{given } |\alpha| < 1 \\
-V(\epsilon_t) &= E[\epsilon_t^2] \\
-&= E[\omega + \alpha \epsilon_{t-1}^2 + \nu_t] \\
-&= \omega + \alpha E[\epsilon_{t-1}^2] + E[\nu_t] \\
-&= \omega + \alpha E[\epsilon_{t-1}^2] \\
-E[\epsilon_{t-1}^2] - \alpha E[\epsilon_{t-1}^2] &= \omega \\
-E[\epsilon_{t-1}^2] (1 - \alpha) &= \omega \\
-E[\epsilon_{t-1}^2] &= \frac{\omega}{1 - \alpha_1 - \alpha_2}
-\end{align*}
-
 Assuming $\alpha_1 + \alpha_2 < 1$ for stationarity
 
-NEEEEEEEEEEEEEEEEEEEEEEEEDS MERGINGGGGGGGGGGGGGGGGGGG
-
-Let \( \mathcal{F}_{t-1} \) be the past history of the process, then the conditional expectation of \( \epsilon_t \) is given by:
+Where \( \mathcal{F}_{t-1} \) is the past history of the process, then the conditional expectation of \( \epsilon_t \) is given by:
 \begin{equation}
-E(\epsilon_t | \mathcal{F}_{t-1}) = E(\sigma_t V_t | \mathcal{F}_{t-1}) = \sigma_t E(V_t | \mathcal{F}_{t-1}) = 0
+	E(\epsilon_t | \mathcal{F}_{t-1}) = E(\sqrt{\sigma^2_t } z_{t}| \mathcal{F}_{t-1}) = \sigma_t E(z_t | \mathcal{F}_{t-1}) = \sigma_t \cdot 0 = 0
 \end{equation}
-Thus:
+Using LIE, we can obtain the unconditional mean :
 \begin{equation}
 E(\epsilon_t) = E(E(\epsilon_t | \mathcal{F}_{t-1})) = E(0) = 0
 \end{equation}
 
-To derive the second moment, note that you can express \( \epsilon_t^2 \) as an ARMA(1,1)-process:
-\begin{equation}
-\epsilon_t^2 = \alpha_0 + (\alpha_1 + \beta_1)\epsilon_{t-1}^2 + w_t - \beta_1 w_{t-1}
-\end{equation}
-with \( w_t = \epsilon_t^2 - \sigma_t^2 \) being a WN process.
+To derive the second moment, we can express \( \epsilon_t^2 \) as an AR(22)-process:
+
+\begin{align*}
+\sigma^2_t + \epsilon^2_{t} = \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \epsilon_{t-2}^2 + \epsilon^2_{t} \\
+\epsilon_t^2 = \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \epsilon_{t-2}^2 + \nu_t
+\end{align*}
+with \( \nu_t = \epsilon_t^2 - \sigma_t^2 \) being a WN process.
 
 It holds that:
 \begin{equation}
-E(\epsilon_t^2 | \mathcal{F}_{t-1}) = E(\sigma_t^2 V_t^2 | \mathcal{F}_{t-1}) = \sigma_t^2 E(V_t^2 | \mathcal{F}_{t-1}) = \sigma_t^2 \cdot 1 = \sigma_t^2
+E(\epsilon^2_t | \mathcal{F}_{t-1}) = E(\sigma^2_t  z^2_{t}| \mathcal{F}_{t-1}) = \sigma^2_t E(z^2_t | \mathcal{F}_{t-1}) = \sigma^2_t \cdot 1 = \sigma^2_t
 \end{equation}
-Thus:
+
+Such that:
 \begin{equation}
-E(w_t | \mathcal{F}_{t-1}) = E(\epsilon_t^2 | \mathcal{F}_{t-1}) - \sigma_t^2 = \sigma_t^2 - \sigma_t^2 = 0
+E(\nu_t | \mathcal{F}_{t-1}) = E(\epsilon_t^2 | \mathcal{F}_{t-1}) - \sigma_t^2 = \sigma_t^2 - \sigma_t^2 = 0
 \end{equation}
+
 Therefore:
 \begin{equation}
-E(w_t) = E(E(w_t | \mathcal{F}_{t-1})) = E(0) = 0
+E(\nu_t) = E(E(\nu_t | \mathcal{F}_{t-1})) = E(0) = 0
 \end{equation}
 
-This allows us to write:
-\begin{equation}
-E(\epsilon_t^2) = \alpha_0 + (\alpha_1 + \beta_1)E(\epsilon_{t-1}^2) + E(w_t) - \beta_1 E(w_{t-1}) = \alpha_0 + (\alpha_1 + \beta_1)E(\epsilon_{t-1}^2)
-\end{equation}
-Assuming stationarity, we conclude that \( E(\epsilon_{t-1}^2) = E(\epsilon_t^2) \) and hence:
-\begin{equation}
-\mathrm{Var}(\epsilon_t) = E(\epsilon_t^2) - (E(\epsilon_t))^2 = E(\epsilon_t^2) = \frac{\alpha_0}{1 - (\alpha_1 + \beta_1)}
-\end{equation}
-If we impose the restriction \( \alpha_1 + \beta_1 < 1 \), \( \mathrm{Var}(\epsilon_t) \) exists and is finite.
+Which allows us to write:
+\begin{align*}
+E(\epsilon_t^2) = \omega + \alpha_1 E \left[   \epsilon_{t-1}^2 \right] + \alpha_2  E \left[ \epsilon_{t-2}^2 \right] + E \left[ \nu_t \right] \\
+&= \omega + \alpha_1 E \left[ \epsilon_{t-1}^2 \right] + \alpha_2  E \left[ \epsilon_{t-2}^2 \right]
+\end{align*}
 
-Now, observe that:
-\begin{equation}
-\mathrm{Cov}(\epsilon_t, \epsilon_{t-\tau}) = E(\epsilon_t \epsilon_{t-\tau}) - E(\epsilon_t)E(\epsilon_{t-\tau}) = E(\epsilon_t \epsilon_{t-\tau}) - E(\epsilon_t | \mathcal{F}_{t-1})E(\epsilon_{t-\tau} | \mathcal{F}_{t-1}) = 0
-\end{equation}
+Using stationarity, \( E(\epsilon_{t-1}^2) = E(\epsilon_t^2) \) and hence we conclude that:
 
-
+\begin{align*}
+\mathrm{Var}(\epsilon_t) = E(\epsilon_t^2) - (E(\epsilon_t))^2 = E(\epsilon_t^2) =  \omega + \alpha_1 \mathrm{Var}(\epsilon_{t-1}) - \alpha_2 \mathrm{Var}(\epsilon_{t-2}) = \frac{\omega}{1- \alpha_1 - \alpha_2} = \frac{\omega}{1 - \sum_{i=1}^{2} \alpha_{i} } 
+\end{align*}
 
 \subsection*{Question c}
 
-Using $\text{Cov} (X, Y) = E[XY] - E[X]E[Y]$ we derive the covariance, where $\sigma^2_{t+1} = \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \epsilon^2_{t-2}) \epsilon_t$
-
+Using the covariance definition $\text{Cov}(X, Y) = E[XY] - E[X]E[Y]$ and given the conditional variance $\sigma^2_{t+1} = \omega + \alpha_1 \epsilon_{t}^2 + \alpha_2 \epsilon^2_{t-1}$, we derive the covariance as follows:
 \begin{align*}
-\text{Cov}(\sigma^2_{t+1}, \epsilon_t | F_{t-1}) &= E[ \sigma^2_{t+1} \epsilon_t | F_{t-1}] - E[\sigma^2_{t+1}| F_{t-1} ] E[\epsilon_{t-1} | F_{t-1})
+\text{Cov}(\sigma^2_{t+1}, \epsilon_t | \mathcal{F}_{t-1}) &= E[\sigma^2_{t+1} \epsilon_t | \mathcal{F}_{t-1}] - E[\sigma^2_{t+1} | \mathcal{F}_{t-1}]E[\epsilon_t | \mathcal{F}_{t-1}] \\
+&= E[\sigma^2_{t+1} \epsilon_t | \mathcal{F}_{t-1}] - 0 \\
+&= E \left[ \left( \omega + \alpha_1 \epsilon_{t}^2 + \alpha_2 \epsilon^2_{t-1} \right) \epsilon_t | \mathcal{F}_{t-1} \right] \\
+&= \omega E[\epsilon_t | \mathcal{F}_{t-1}] + \alpha_1 E[\epsilon_t^3 | \mathcal{F}_{t-1}] + \alpha_2 E[\epsilon^2_{t-1} \epsilon_t | \mathcal{F}_{t-1}] \quad \text{(since $\omega$ and $\epsilon^2_{t-1}$ don't depend on $\epsilon_t$}) \\
+&= 0 + \alpha_1 E[\epsilon_t^3 | \mathcal{F}_{t-1}] + 0 \quad \text{(since $\epsilon_t$ is conditionally zero-mean and independent of $\epsilon_{t-1}$)}.
 \end{align*}
 
-Given that $\epsilon_t$ has a conditional expectation of 0, the second term becomes 0, leaving
-
+Now, if we consider $\epsilon_t = \sigma_t z_t$ :
 \begin{align*}
-E[ \sigma^2_{t+1} \epsilon_t | \ensuremath{\mathcal{F}}_{t-1}] = E \left[ \left( \omega + \alpha_1 \epsilon_t^2 + \alpha_2 \epsilon^2_{t-1} \right) \epsilon_t^2 \right] \\
-&= E \left[  \omega \epsilon_t + \alpha_1 \epsilon_t^3 + \alpha_2 \epsilon^2_{t-1}  \epsilon_t  \right]
+\text{Cov}(\sigma^2_{t+1}, \epsilon_t | \mathcal{F}_{t-1}) =
+\alpha_1 E[\epsilon_t^3 | \mathcal{F}_{t-1}] &= \alpha_1 E[(\sigma_t z_t)^3 | \mathcal{F}_{t-1}] \\
+&= \alpha_1 \sigma_t^3 E[z_t^3 | \mathcal{F}_{t-1}] \\
+&= \alpha_1 \left( \omega + \alpha_1 \epsilon_{t}^2 + \alpha_2 \epsilon^2_{t-1} \right)^\frac{3}{2} E[z_t^3].
 \end{align*}
-
-Then,  since $\omega$ is a constant and the conditional mean of $\epsilon_t =0$ (previously shown), the first term disappears. 
-
-Then, simplifying further, since $\sigma^2_{t}$ is $\ensuremath{\mathcal{F}}_{t-1}$deterministic 
-We can use the property $E[XY \mid \mathcal{F}_{t-1}] = E[X \mid \mathcal{F}_{t-1}]E[Y \mid \mathcal{F}_{t-1}]$ for independent random variables $X$ and $Y$:
-
-\begin{equation}
-E[\alpha_2 \sigma_t^2 \epsilon_t \mid \mathcal{F}_{t-1}] = \alpha_2 \sigma_t^2 E[\epsilon_t \mid \mathcal{F}_{t-1}] = 0
-\end{equation}
-
-Therefore, we obtain:
-
-\begin{equation}
-\alpha_1 E[\epsilon_t^3 \mid \mathcal{F}_{t-1}]
-\end{equation}
-
-Which we can rewrite as
- \[
- a_1 E \left[ zt^3 \right] E \left[ ( \omega + \alpha_1 \epsilon_t^2 + \alpha_2 \epsilon^2_{t-1} )^\frac{3}{2} \mid \ensuremath{\mathcal{F}}_{t-1}  \right] 
- \] 
- \[
- = \alpha_1 \left( \omega + \alpha_1 \epsilon_t^2 + \alpha_2 \epsilon^2_{t-1} \right) )^{\frac{3}{2}} E \left[ z_{t}^3 \right]  
- \] 
-35:52 GARCH
-NEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEDDS CHECKING - WATCH OVER VID
-
-If $z_t$ follows a symmetric distribution like the standard normal, the third moment is 0. 
-The leverage effect refers to the tendency for negative innovations (negative returns) to be associated with higher future volatility, and positive innovations (positive returns) to be associated with lower future volatility.
-
-if the standardized innovation z_t has a symmetric distribution, meaning its third moment E[z_t^3] is zero, then the covariance between ε_t and σ^2_(t+1) will be zero. This implies that the model cannot capture the leverage effect, which is the tendency for negative shocks to have a different impact on volatility than positive shocks.
+Only with  non-zero third moment on $z_t$, is the model able to capture the leverage (asymmetric) effect.   
+Since $z_t ~ \mathcal{N}(0,\,1)$ , the third moment is 0 and $\text{Cov}(\sigma^2_{t+1}, \epsilon_t | \mathcal{F}_{t-1}) = 0$ so the model cannot capture the leverage effect, which is the tendency for negative shocks to have a different impact on volatility than positive shocks.
 
 \subsection*{Question d}
 
@@ -209,55 +157,32 @@ Similarly for the 3-step ahead forecast, following the same logic
 
 \subsection*{Question e}
 
+The news impact curve illustrates how a shock to \( \epsilon_{t-1} \) affects \( \sigma_t^2 \).
 
-For an ARCH(2) model, the conditional variance is given by:
+We derive the unconditional long-term variance \( \bar{\sigma}^2 \) assuming that \( E(\epsilon_t^2) \) at any point is equal to \( \bar{\sigma}^2 \). From the stationarity condition:
 \begin{equation}
-\sigma_t^2 = \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \epsilon_{t-2}^2,
+E(\epsilon_t^2) = \omega + \alpha_1 E(\epsilon_{t-1}^2) + \alpha_2 E(\epsilon_{t-2}^2).
 \end{equation}
-where \( \sigma_t^2 \) is the conditional variance, \( \epsilon_t \) is the residual at time t, and \( \omega, \alpha_1, \alpha_2 \) are non-negative parameters.
-
-The news impact curve (NIC) equation incorporates asymmetric effects and can be expressed as:
+Given \( E(\epsilon_{t-1}^2) = E(\epsilon_{t-2}^2) = \bar{\sigma}^2 \), the equation simplifies to:
 \begin{equation}
-\sigma_t^2 = \omega + \alpha_1 (|\epsilon_{t-1}| + \gamma_1 \epsilon_{t-1})^2 + \alpha_2 (|\epsilon_{t-2}| + \gamma_2 \epsilon_{t-2})^2,
-\end{equation}
-with leverage parameters \( \gamma_1 \) and \( \gamma_2 \). If \( \gamma_1 = \gamma_2 = 0 \), the NIC is symmetric. Asymmetric effects are introduced when \( \gamma_1 \neq 0 \) or \( \gamma_2 \neq 0 \), indicative of a leverage effect.
-
-Expanding the equation, we have:
-\begin{equation}
-\sigma_t^2 = \omega + \alpha_1 (\epsilon_{t-1}^2 + 2\gamma_1 |\epsilon_{t-1}|\epsilon_{t-1} + \gamma_1^2 \epsilon_{t-1}^2) + \alpha_2 (\epsilon_{t-2}^2 + 2\gamma_2 |\epsilon_{t-2}|\epsilon_{t-2} + \gamma_2^2 \epsilon_{t-2}^2),
-\end{equation}
-demonstrating the dependence of \( \sigma_t^2 \) on \( \epsilon_{t-1} \) and \( \epsilon_{t-2} \), and the asymmetry introduced by \( \gamma_1 \) and \( \gamma_2 \).
-\begin{equation}
-\text{NIC}(\epsilon_{t-1} | \sigma_{t-1}^2 = \sigma_Y^2) = \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \sigma_Y^2.
+\bar{\sigma}^2 = \frac{\omega}{1 - \alpha_1 - \alpha_2}.
 \end{equation}
 
-AAAAAAAAAAAASSSSYMMMETRIC ARCH? 
- not sure
-
-For an ARCH(2) model, the conditional variance is typically given by:
+The news impact curve for the ARCH(2) model is then set up as:
 \begin{equation}
-\sigma_t^2 = \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \epsilon_{t-2}^2,
+\sigma_t^2 = \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \bar{\sigma}^2.
 \end{equation}
-where \( \sigma_t^2 \) is the conditional variance, \( \epsilon_t \) is the residual at time t, and \( \omega, \alpha_1, \alpha_2 \) are non-negative parameters.
-
-The news impact curve (NIC) extends this model to account for asymmetric effects, which is especially relevant in financial data where 'bad' and 'good' news might have different impacts on volatility. This is captured by introducing leverage parameters \( \gamma_1 \) and \( \gamma_2 \), modifying the model as follows:
+With the most recent shock \( \epsilon_{t-1} \) highlighted, we rewrite it as:
 \begin{equation}
-\sigma_t^2 = \omega + \alpha_1 (|\epsilon_{t-1}| + \gamma_1 \epsilon_{t-1})^2 + \alpha_2 (|\epsilon_{t-2}| + \gamma_2 \epsilon_{t-2})^2,
+\sigma_t^2 = A + \alpha_1 \epsilon_{t-1}^2,
 \end{equation}
-where \( \gamma_1 \) and \( \gamma_2 \) represent the additional impact of negative shocks to volatility compared to positive ones. 
+where \( A = \omega + \alpha_2 \bar{\sigma}^2 \)
 
-Expanding the NIC equation, we have:
-\begin{equation}
-\sigma_t^2 = \omega + \alpha_1 (\epsilon_{t-1}^2 + 2\gamma_1 |\epsilon_{t-1}|\epsilon_{t-1} + \gamma_1^2 \epsilon_{t-1}^2) + \alpha_2 (\epsilon_{t-2}^2 + 2\gamma_2 |\epsilon_{t-2}|\epsilon_{t-2} + \gamma_2^2 \epsilon_{t-2}^2),
-\end{equation}
-which illustrates how conditional variance depends on both the magnitude and sign of the previous shocks, with \(\gamma_1\) and \(\gamma_2\) dictating the asymmetry of the impact.
+Thus with an asymmetric distribution, we can derive the NIC as :
 
-To visualize the news impact curve for the most recent shock \(\epsilon_{t-1}\), while considering the conditional variances at their long-term average (unconditional variance \(\sigma_Y^2\)), we use the equation:
 \begin{equation}
 \text{NIC}(\epsilon_{t-1} | \sigma_{t-1}^2 = \sigma_Y^2) = \omega + \alpha_1 \epsilon_{t-1}^2 + \alpha_2 \sigma_Y^2.
 \end{equation}
-
-The NIC is typically plotted with \(\epsilon_{t-1}\) on the x-axis and \(\sigma_t^2\) on the y-axis, showing the relationship between the magnitude of the shock and the resulting volatility. The asymmetry will be evident if the curve is not symmetric around zero, indicating that the model predicts different levels of volatility for positive and negative shocks of the same magnitude.
 
 \section*{Practical exercise}
 \subsection*{Question a}
@@ -310,88 +235,30 @@ Kurtosis & \akurt & JB & \ajbt & \ajbp \\
 \end{figure}
 
 \subsection*{Interpretation}
+Looking at the Descriptive Statistics, a skewness of \askew suggests that the distribution of returns negatively skewed, meaning there are more extreme negative returns than positive returns. 
+Whilst a kurtosis of \akurt is slightly higher than a normal distribution (3), suggesting the distribution of returns has heavier tails and more extreme values.
 
-\subparagraph{Descriptive Statistics}  
+Looking at the Test Statistics, testing mean returns are zero ($H_0 : \mu =0$ against $H_1 : \mu \neq = 0$) with a one-sided test.
+Obtaining \amut with a p-value of \amup, we fail to reject $H_0$ at all conventional significance levels, since we do not have enough evidence to conclude the mean return is significantly different from zero. 
 
-Mean : the sample mean is \amu 
+Testing the skewness of the return series is zero ($ H_1: \gamma = 0$ against $H_1 : \gamma \neq = 0$)
+We obtain \askewt with a p-value of \askewp, since the p-value is less than 0.05, we reject the null hypothesis in favour of the alternative hypothesis. 
+Thus, the distribution of returns is significantly skewed, and hence non-symmetric. 
+Testing for leptokurtic property in the returns ($H_0 : \kappa = 3$ against $H_1 : \kappa \neq 3 $)
+We obtain \akurt and p value of $\akurtp$, thus we reject $H_0$, in favour of the alternative hypothesis that the returns have significantly different kurtosis from 3, confirming the presence of heavy tails in the distribution. 
 
-Standard Deviation : the standard deviation is \asigma, indicating a relatively high volatility of the data. 
+Using the Jargue-Bera test for normality ($H_0 : \gamma = 0 \& \kappa = 3$ against $H_0 : \gamma \neq 0 \& \kappa \neq 3$) 
 
-Skewness : the skewness value of \askew suggests that the distribution of returns is slightly negatively skewed, meaning there are more extreme negative returns than positive returns. 
+Obtaining \ajbt with a p-value of \ajbp, we reject $H_0$ in favour of $H_1$, that the distribution of returns differs significantly from normality, evidence by its skewness and kurtosis values. 
 
-Kurtosis : the kurtosis value of \akurt is higher than the normal distribution value of 3, indicating that the distribution of returns has heavier tails and more extreme values when compared to a normal distribution. 
+Testing the autocorrelation of the financial time series returns ($H_0: \rho_1 = \rho_2 = \ldots = \rho_{21} = 0$ against $H_1: \rho_i \neq 0$ for some $i \in \{1, 2, \ldots, 21 \}$)
 
-\subparagraph{Test Statistics}
+Obtaining a p-value of 0.17, we do not reject the null hypothesis at all conventional significance levels, thus, there is no significant evidence of autocorrelation in the returns of the series.
+We proceed analogously for the squared returns, arriving at the same conclusion, indicating no significant evidence of autocorrelation in the volatility (squared returns) of the series. 
 
-Testing the significance of the mean return, we set up the following hypothesis and use a one sided test :
-\begin{itemize}
-	\item The null hypothesis, the mean return is equal to zero ($H_0 : \mu =0$) against
-	\item The alternative hypothesis that the mean is not equal to zero $H_1 : \mu \neq = 0$.
-\end{itemize}
-The decision rule is that we reject $H_0$ if the p-value is less than the significance level $\alpha$ (EG, 0.05). 
-The test statistic obtained is \amut with a p-value of \amup, thus we fail to reject $H_0$ at all conventional significance levels. 
-We do not have enough evidence to conclude the mean return is significantly different from zero, and cannot reject the possibility that the true mean return is equal to zero. 
+For the plots, there is no consistent pattern of significant lags in both plots, however a significant negative correlation at lag 13 alongside lags approaching significance at 9 and 20 suggests some evidence for a seasonal pattern, however the presence of significant lags informs us the time series is not white noise and exhibits some autocorrelation. 
 
-Testing the significance of skewness in the returns, we set up the following hypothesis and one sided test :
-\begin{itemize}
-	\item The null hypothesis, the skewness of the return series is zero ($ H_1: \gamma = 0$), indicating a symmetric distribution. Against
-	\item The alternative hypothesis, the skewness of the financial time series returns is not zero ($\gamma \neq = 0$), indicating a non-symmetric distribution
-\end{itemize}
-The decision rule is to reject $H_0$ if the p value is less than the significance level $\alpha$ (EG, 0.05). 
-The test statistic obtained is \askewt with a p-value of \askewp. Since the p-value is less than 0.05, we reject the null hypothesis ($H_0$) in favour of the alternative hypothesis. 
-Thus, the distribution of returns is significantly skewed, and hence not symmetric. 
-Testing for kurtosis (leptokurtic property) in the returns, we set up the following hypothesis and one sided test:
-\begin{itemize}
-	\item The null hypothesis, the kurtosis of the returns equals the normal distribution value of 3 ($H_0 : \kappa = 3$), indicating a normal distribution in terms of tail thickness. Against, 
-	\item The alternative hypothesis, the kurtosis of the financial time series returns is significantly different from 3 ($H_1 : \kappa \neq 3 $), indicating a non-normal distribution in terms of tail thickness
-\end{itemize}
-The decision rule is to reject $H_0$ if the p value is less than the significance level $\alpha$ (EG, 0.05). 
-The test statistic obtained is \akurt and p value of $\akurtp$, thus we reject  $H_0$, in favour of the alternative hypothesis.
-Thus, the returns have significantly different kurtosis from 3, confirming the presence of heavy tails in the distribution. 
-
-Using the Jargue-Bera test for normality, we set up the following hypothesis and 1 sided test : 
-\begin{itemize}
-	\item The null hypothesis, the returns follow a normal distribution, implying that both the skewness and kurtosis of the series equal those of a normal distribution ($H_0 : \gamma = 0 \& \kappa = 3$). Against, 
-	\item The alternative hypothesis, that the returns do not follow a normal distribution, meaning either the or both the skewness and kurtosis significantly differ from those of a normal distribution ($H_0 : \gamma \neq 0 \& \kappa \neq 3$). 
-\end{itemize}
-The decision rule is to reject $H_0$ if the p-value is less than the significance level $\alpha$ (EG, 0.05). 
-The outcome of the test since the JB test statistic is \ajbt with a p-value of \ajbp. 
-Therefore, we reject $H_0$ in favour of $H_1$, that the distribution of returns differs significantly from normality, evidence by its skewness and kurtosis values. 
-
-\subparagraph{Ljung-Box Test}
-
-Testing the autocorrelation of the financial time series returns, we use the Ljung-Box Q-test with the following hypotheses:
-
-\begin{itemize}
-	\item The null hypothesis, which states that there is no autocorrelation in the series up to a certain number of lags ($H_0: \rho_1 = \rho_2 = \ldots = \rho_{21} = 0$), where $\rho$ represents autocorrelation at different lags.
-	\item The alternative hypothesis, which suggests that there is some autocorrelation in the series at least at one lag ($H_1: \rho_i \neq 0$ for some $i \in \{1, 2, \ldots, 21 \}$).
-\end{itemize}
-
-The decision rule is to reject $H_0$ if the p-value is less than the significance level $\alpha$ (e.g., 0.05).
-
-For the returns, the test statistic obtained is 27.06 with a p-value of 0.17.
-
-Since the p-value is greater than all conventional significance levels, we do not reject the null hypothesis. 
-Thus, there is no significant evidence of autocorrelation in the returns of the series.
-
-For squared returns, the test statistic obtained is 25.61 with a p-value of 0.22.
-
-Similarly, since the p-value is greater than 0.05, we do not reject the null hypothesis for squared returns  at all conventional significance levels either.
-This indicates no significant evidence of autocorrelation in the volatility (squared returns) of the series.
-
-\subparagraph{SACF SPACF plots}
-
-The SACF plot measures the correlation between different points in the time series separated by various lags. 
-Whilst most autocorrelations are within the confidence intervals, a significant negative correlation at lag 13 suggests there is a season pattern that repeats every 13 periods, so if a series is above average at one point, it tends to be below average 13 periods later and vice versa. 
-Furthermore, a lag on the border of significance at 20 suggests a possible longer cynical effect, although this is not as pronounced.
-This is also evident for lag 9 since it is just below significance in the SACF but is significant in the SPACF, indicating a direct negative influence from the observation 9 periods ago on the current observation, after accounting for the influences of all observations in between. 
-In summary, there is no consistent pattern of significant lags, which would typically be used to identify AR or MA components. 
-The presence of significant lags informs us the time series is not white noise and exhibits autocorrelation. 
-
-\subparagraph{Daily Log-returns}
-
-The plot indicates considerable fluctuation around the mean of \amu, whilst the returns do not display a clear trend or seasonal pattern. 
-The volatility appears to be clustered in certain periods, indicative of heteroskedacity where periods of high volatility are followed by high volatility and vice versa. 
+The Daily Log-returns plot does not display a clear trend or seasonal pattern, although the volatility appears to be clustered in certain periods, indicative of heteroskedacity.
 
 \subsection*{Question b}
 
